@@ -125,7 +125,8 @@ async def get_dashboard_data(stokvel_id: int, db: Session = Depends(get_db)):
         Member.stokvel_id == stokvel_id
     ).count()
     
-    total_amount = db.query(db.func.sum(Contribution.amount)).join(Member).filter(
+    from sqlalchemy import func
+    total_amount = db.query(func.sum(Contribution.amount)).join(Member).filter(
         Member.stokvel_id == stokvel_id
     ).scalar() or 0
     
