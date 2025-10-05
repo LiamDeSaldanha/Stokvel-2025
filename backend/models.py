@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Float, DateTime, ForeignKey, Text
+from sqlalchemy import Column, Integer, String, Float, DateTime, ForeignKey, Text, Boolean
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
@@ -14,50 +14,60 @@ class Stokvel(Base):
     
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, nullable=False)
-    description = Column(Text)
-    contribution_amount = Column(Float, nullable=False)
-    contribution_frequency = Column(String, nullable=False)  # weekly, monthly, etc.
-    payout_frequency = Column(String, nullable=False)
-    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    number_people = Column(Integer)
+    goal = Column(Text)
+    monthly_contribution = Column(Integer)
+    net_value = Column(Integer, nullable=False)
+    interest_rate = Column(Integer, nullable=False)
+    started_at = Column(DateTime(timezone=True), server_default=func.now())
+    end_at = Column(DateTime(timezone=True))
     
     # Relationships
-    members = relationship("Member", back_populates="stokvel")
+    users = relationship("User", back_populates="stokvel")
 
-class Member(Base):
-    __tablename__ = "members"
+class User(Base):
+    __tablename__ = "users"
     
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, nullable=False)
-    email = Column(String, nullable=False)
-    phone = Column(String)
+    surname = Column(String, nullable=False)
+    password = Column(String, nullable=False)
+    email = Column(String, )
+    id_number = Column(String)
     stokvel_id = Column(Integer, ForeignKey("stokvels.id"))
     joined_at = Column(DateTime(timezone=True), server_default=func.now())
     
     # Relationships
-    stokvel = relationship("Stokvel", back_populates="members")
-    contributions = relationship("Contribution", back_populates="member")
+    stokvel = relationship("Stokvel", back_populates="users")
 
-class Contribution(Base):
-    __tablename__ = "contributions"
+class Payments(Base):
+    __tablename__ = "payments"
     
     id = Column(Integer, primary_key=True, index=True)
-    member_id = Column(Integer, ForeignKey("members.id"))
+    userid = Column(Integer, ForeignKey("users.id"), nullable=False)
+    stokvelId = Column(Integer, ForeignKey("stokvels.id"), nullable=False)
     amount = Column(Float, nullable=False)
-    contribution_date = Column(DateTime(timezone=True), server_default=func.now())
-    notes = Column(Text)
+    date = Column(DateTime(timezone=True), server_default=func.now())
     
     # Relationships
-    member = relationship("Member", back_populates="contributions")
+    user = relationship("User", foreign_keys=[userid])
+    stokvel = relationship("Stokvel", foreign_keys=[stokvelId])
 
-class Payout(Base):
-    __tablename__ = "payouts"
+class StokvelEnrollment(Base):
+    __tablename__ = "stokvel_enrollment"
     
     id = Column(Integer, primary_key=True, index=True)
-    stokvel_id = Column(Integer, ForeignKey("stokvels.id"))
-    member_id = Column(Integer, ForeignKey("members.id"))
-    amount = Column(Float, nullable=False)
-    payout_date = Column(DateTime(timezone=True), server_default=func.now())
-    notes = Column(Text)
+    userId = Column(Integer, ForeignKey("users.id"), nullable=False)
+    stovelId = Column(Integer, ForeignKey("stokvels.id"), nullable=False)
+    isAdmin = Column(Boolean, default=False, nullable=False)
+    enrolled_at = Column(DateTime(timezone=True), server_default=func.now())
+    
+    # Relationships
+    user = relationship("User", foreign_keys=[userId])
+    stokvel = relationship("Stokvel", foreign_keys=[stovelId])
+
+
+
 
 # Pydantic Models for API
 class StokvelBase(BaseModel):
@@ -76,31 +86,45 @@ class StokvelResponse(StokvelBase):
     id: int
     created_at: datetime
 
-class MemberBase(BaseModel):
+class UserBase(BaseModel):
     name: str
     email: str
     phone: Optional[str] = None
 
-class MemberCreate(MemberBase):
+class UserCreate(UserBase):
     pass
 
-class MemberResponse(MemberBase):
+class UserResponse(UserBase):
     model_config = ConfigDict(from_attributes=True)
     
     id: int
     stokvel_id: int
     joined_at: datetime
 
-class ContributionBase(BaseModel):
-    member_id: int
-    amount: float
-    notes: Optional[str] = None
+class StokvelEnrollmentBase(BaseModel):
+    userId: int
+    stovelId: int
+    isAdmin: bool = False
 
-class ContributionCreate(ContributionBase):
+class StokvelEnrollmentCreate(StokvelEnrollmentBase):
     pass
 
-class ContributionResponse(ContributionBase):
+class StokvelEnrollmentResponse(StokvelEnrollmentBase):
     model_config = ConfigDict(from_attributes=True)
     
     id: int
-    contribution_date: datetime
+    enrolled_at: datetime
+
+class PaymentsBase(BaseModel):
+    userid: int
+    stokvelId: int
+    amount: float
+
+class PaymentsCreate(PaymentsBase):
+    pass
+
+class PaymentsResponse(PaymentsBase):
+    model_config = ConfigDict(from_attributes=True)
+    
+    id: int
+    date: datetime
