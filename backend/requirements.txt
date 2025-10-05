@@ -14,5 +14,8 @@ psycopg2-binary>=2.9.0,<3.0.0
 python-dotenv>=1.0.0
 python-multipart>=0.0.5
 
+# AI Agent
+pydantic-ai>=0.0.13
+
 # Testing
 pytest>=7.0.0,<9.0.0

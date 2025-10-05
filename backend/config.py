@@ -12,6 +12,11 @@ DATABASE_URL = os.getenv(
     "postgresql://stokvel_user:stokvel_pass@postgres:5432/stokvel_db"
 )
 
+# OpenAI configuration
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+if not OPENAI_API_KEY:
+    print("Warning: OPENAI_API_KEY not set. AI chat features will not work.")
+
 # Create database engine
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)

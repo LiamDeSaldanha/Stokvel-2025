@@ -18,17 +18,25 @@ export const stokvelAPI = {
   getAllStokvels: () => api.get('/stokvels/'),
   getStokvel: (id) => api.get(`/stokvels/${id}`),
   
-  // Member endpoints
-  addMember: (stokvelId, memberData) => api.post(`/stokvels/${stokvelId}/members/`, memberData),
-  getMembers: (stokvelId) => api.get(`/stokvels/${stokvelId}/members/`),
+  // User endpoints
+  createUser: (data) => api.post('/users/', data),
+  getAllUsers: () => api.get('/users/'),
+  getUser: (id) => api.get(`/users/${id}`),
   
-  // Contribution endpoints
-  makeContribution: (data) => api.post('/contributions/', data),
-  getContributions: (stokvelId) => api.get(`/stokvels/${stokvelId}/contributions/`),
-  getMemberContributions: (memberId) => api.get(`/members/${memberId}/contributions/`),
+  // Enrollment endpoints
+  createEnrollment: (data) => api.post('/enrollments/', data),
+  getStokvelEnrollments: (stokvelId) => api.get(`/enrollments/stokvel/${stokvelId}`),
+  
+  // Payment endpoints
+  createPayment: (data) => api.post('/payments/', data),
+  getUserPayments: (userId) => api.get(`/payments/user/${userId}`),
   
   // Dashboard
   getDashboard: (stokvelId) => api.get(`/dashboard/${stokvelId}`),
+  
+  // AI Chat endpoints
+  sendChatMessage: (message) => api.post('/chat', { message }),
+  checkChatHealth: () => api.get('/chat/health'),
 }
 
 export default api

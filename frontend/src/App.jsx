@@ -5,6 +5,8 @@ import { Dashboard } from './components/Dashboard'
 import { CreateStokvel } from './components/CreateStokvel'
 import { StokvelList } from './components/StokvelList'
 import { StokvelDetail } from './components/StokvelDetail'
+import Chat from './components/Chat'
+import ErrorBoundary from './components/ErrorBoundary'
 
 function App() {
   return (
@@ -16,6 +18,11 @@ function App() {
           <Route path="/stokvels" element={<StokvelList />} />
           <Route path="/stokvels/create" element={<CreateStokvel />} />
           <Route path="/stokvels/:id" element={<StokvelDetail />} />
+          <Route path="/chat" element={
+            <ErrorBoundary>
+              <Chat />
+            </ErrorBoundary>
+          } />
         </Routes>
       </main>
     </div>

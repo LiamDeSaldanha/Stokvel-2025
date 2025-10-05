@@ -12,6 +12,8 @@ from models import (
     StokvelEnrollmentCreate, StokvelEnrollmentResponse
 )
 from config import get_db, engine
+from ai_agent import chat_with_stokvel_agent
+from pydantic import BaseModel
 import models
 
 # Create database tables
@@ -165,6 +167,27 @@ async def get_dashboard_data(stokvel_id: int, db: Session = Depends(get_db)):
         "total_payments": total_payments,
         "total_amount": float(total_amount)
     }
+
+# Pydantic models for chatbot
+class ChatMessage(BaseModel):
+    message: str
+
+class ChatResponse(BaseModel):
+    response: str
+
+@app.post("/chat", response_model=ChatResponse)
+async def chat_with_ai(chat_message: ChatMessage, db: Session = Depends(get_db)):
+    """Chat with the Stokvel AI agent"""
+    try:
+        response = await chat_with_stokvel_agent(chat_message.message, db)
+        return ChatResponse(response=response)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Chat error: {str(e)}")
+
+@app.get("/chat/health")
+async def chat_health():
+    """Check if the chat service is healthy"""
+    return {"status": "Chat service is running", "agent": "Stokvel AI Assistant"}
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)

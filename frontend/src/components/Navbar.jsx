@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Users, Home, Plus } from 'lucide-react'
+import { Users, Home, Plus, Bot } from 'lucide-react'
 
 export function Navbar() {
   const location = useLocation()
@@ -41,6 +41,14 @@ export function Navbar() {
             >
               <Plus className="h-4 w-4" />
               <span>Create Stokvel</span>
+            </Link>
+            
+            <Link
+              to="/chat"
+              className={`px-3 py-2 rounded-md text-sm font-medium flex items-center space-x-1 ${isActive('/chat')}`}
+            >
+              <Bot className="h-4 w-4" />
+              <span>AI Chat</span>
             </Link>
           </div>
         </div>
