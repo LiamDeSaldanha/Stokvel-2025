@@ -1,0 +1,86 @@
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: stokvel-postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-stokvel_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-stokvel_pass}
+      POSTGRES_DB: ${POSTGRES_DB:-stokvel_db}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - stokvel-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-stokvel_user}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # FastAPI Backend
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: stokvel-backend
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-stokvel_user}:${POSTGRES_PASSWORD:-stokvel_pass}@postgres:5432/${POSTGRES_DB:-stokvel_db}
+      SECRET_KEY: ${SECRET_KEY:-your-secret-key-change-in-production}
+      ENVIRONMENT: ${ENVIRONMENT:-development}
+    volumes:
+      - ./backend:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - stokvel-network
+    restart: unless-stopped
+
+  # React Frontend with Node.js
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: stokvel-frontend
+    environment:
+      REACT_APP_API_URL: ${REACT_APP_API_URL:-http://localhost:8000}
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - stokvel-network
+    restart: unless-stopped
+
+  # n8n Workflow Automation (commented for future use)
+  # Uncomment when ready to implement n8n
+  # n8n:
+  #   image: n8nio/n8n:latest
+  #   container_name: stokvel-n8n
+  #   environment:
+  #     - N8N_BASIC_AUTH_ACTIVE=true
+  #     - N8N_BASIC_AUTH_USER=${N8N_USER:-admin}
+  #     - N8N_BASIC_AUTH_PASSWORD=${N8N_PASSWORD:-admin}
+  #     - N8N_HOST=${N8N_HOST:-localhost}
+  #     - N8N_PORT=5678
+  #     - N8N_PROTOCOL=http
+  #     - WEBHOOK_URL=http://localhost:5678/
+  #   volumes:
+  #     - n8n_data:/home/node/.n8n
+  #   ports:
+  #     - "5678:5678"
+  #   networks:
+  #     - stokvel-network
+  #   restart: unless-stopped
+
+networks:
+  stokvel-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  # n8n_data:
