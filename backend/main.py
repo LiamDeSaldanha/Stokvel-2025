@@ -5,10 +5,11 @@ from typing import List
 import uvicorn
 
 from models import (
-    Stokvel, Member, Contribution, Payout,
+    Stokvel, User, Payments, StokvelEnrollment,
     StokvelCreate, StokvelResponse,
-    MemberCreate, MemberResponse,
-    ContributionCreate, ContributionResponse
+    UserCreate, UserResponse,
+    PaymentsCreate, PaymentsResponse,
+    StokvelEnrollmentCreate, StokvelEnrollmentResponse
 )
 from config import get_db, engine
 import models
@@ -40,7 +41,7 @@ async def health_check():
 @app.post("/stokvels/", response_model=StokvelResponse)
 async def create_stokvel(stokvel: StokvelCreate, db: Session = Depends(get_db)):
     """Create a new stokvel group"""
-    db_stokvel = Stokvel(**stokvel.dict())
+    db_stokvel = Stokvel(**stokvel.model_dump())
     db.add(db_stokvel)
     db.commit()
     db.refresh(db_stokvel)
@@ -60,57 +61,87 @@ async def get_stokvel(stokvel_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Stokvel not found")
     return stokvel
 
-# Member endpoints
-@app.post("/stokvels/{stokvel_id}/members/", response_model=MemberResponse)
-async def add_member(stokvel_id: int, member: MemberCreate, db: Session = Depends(get_db)):
-    """Add a member to a stokvel"""
+# User endpoints
+@app.post("/users/", response_model=UserResponse)
+async def create_user(user: UserCreate, db: Session = Depends(get_db)):
+    """Create a new user"""
+    db_user = User(**user.model_dump())
+    db.add(db_user)
+    db.commit()
+    db.refresh(db_user)
+    return db_user
+
+@app.get("/users/", response_model=List[UserResponse])
+async def get_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    """Get all users"""
+    users = db.query(User).offset(skip).limit(limit).all()
+    return users
+
+@app.get("/users/{user_id}", response_model=UserResponse)
+async def get_user(user_id: int, db: Session = Depends(get_db)):
+    """Get a specific user"""
+    user = db.query(User).filter(User.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    return user
+
+# Stokvel Enrollment endpoints
+@app.post("/enrollments/", response_model=StokvelEnrollmentResponse)
+async def create_enrollment(enrollment: StokvelEnrollmentCreate, db: Session = Depends(get_db)):
+    """Enroll a user in a stokvel"""
+    # Check if user exists
+    user = db.query(User).filter(User.id == enrollment.userId).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
     # Check if stokvel exists
-    stokvel = db.query(Stokvel).filter(Stokvel.id == stokvel_id).first()
+    stokvel = db.query(Stokvel).filter(Stokvel.id == enrollment.stokvelId).first()
     if not stokvel:
         raise HTTPException(status_code=404, detail="Stokvel not found")
     
-    db_member = Member(**member.dict(), stokvel_id=stokvel_id)
-    db.add(db_member)
+    db_enrollment = StokvelEnrollment(**enrollment.model_dump())
+    db.add(db_enrollment)
     db.commit()
-    db.refresh(db_member)
-    return db_member
+    db.refresh(db_enrollment)
+    return db_enrollment
 
-@app.get("/stokvels/{stokvel_id}/members/", response_model=List[MemberResponse])
-async def get_members(stokvel_id: int, db: Session = Depends(get_db)):
-    """Get all members of a stokvel"""
-    members = db.query(Member).filter(Member.stokvel_id == stokvel_id).all()
-    return members
+@app.get("/stokvels/{stokvel_id}/enrollments/", response_model=List[StokvelEnrollmentResponse])
+async def get_stokvel_enrollments(stokvel_id: int, db: Session = Depends(get_db)):
+    """Get all enrollments for a stokvel"""
+    enrollments = db.query(StokvelEnrollment).filter(StokvelEnrollment.stokvelId == stokvel_id).all()
+    return enrollments
 
-# Contribution endpoints
-@app.post("/contributions/", response_model=ContributionResponse)
-async def make_contribution(contribution: ContributionCreate, db: Session = Depends(get_db)):
-    """Record a member's contribution"""
-    # Verify member exists
-    member = db.query(Member).filter(Member.id == contribution.member_id).first()
-    if not member:
-        raise HTTPException(status_code=404, detail="Member not found")
+# Payments endpoints
+@app.post("/payments/", response_model=PaymentsResponse)
+async def create_payment(payment: PaymentsCreate, db: Session = Depends(get_db)):
+    """Record a payment"""
+    # Verify user exists
+    user = db.query(User).filter(User.id == payment.userId).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
     
-    db_contribution = Contribution(**contribution.dict())
-    db.add(db_contribution)
+    # Verify stokvel exists
+    stokvel = db.query(Stokvel).filter(Stokvel.id == payment.stokvelId).first()
+    if not stokvel:
+        raise HTTPException(status_code=404, detail="Stokvel not found")
+    
+    db_payment = Payments(**payment.model_dump())
+    db.add(db_payment)
     db.commit()
-    db.refresh(db_contribution)
-    return db_contribution
+    db.refresh(db_payment)
+    return db_payment
 
-@app.get("/stokvels/{stokvel_id}/contributions/", response_model=List[ContributionResponse])
-async def get_contributions(stokvel_id: int, db: Session = Depends(get_db)):
-    """Get all contributions for a stokvel"""
-    contributions = db.query(Contribution).join(Member).filter(
-        Member.stokvel_id == stokvel_id
-    ).all()
-    return contributions
+@app.get("/stokvels/{stokvel_id}/payments/", response_model=List[PaymentsResponse])
+async def get_stokvel_payments(stokvel_id: int, db: Session = Depends(get_db)):
+    """Get all payments for a stokvel"""
+    payments = db.query(Payments).filter(Payments.stokvelId == stokvel_id).all()
+    return payments
 
-@app.get("/members/{member_id}/contributions/", response_model=List[ContributionResponse])
-async def get_member_contributions(member_id: int, db: Session = Depends(get_db)):
-    """Get all contributions by a specific member"""
-    contributions = db.query(Contribution).filter(
-        Contribution.member_id == member_id
-    ).all()
-    return contributions
+@app.get("/users/{user_id}/payments/", response_model=List[PaymentsResponse])
+async def get_user_payments(user_id: int, db: Session = Depends(get_db)):
+    """Get all payments by a specific user"""
+    payments = db.query(Payments).filter(Payments.userId == user_id).all()
+    return payments
 
 # Dashboard endpoint
 @app.get("/dashboard/{stokvel_id}")
@@ -120,20 +151,18 @@ async def get_dashboard_data(stokvel_id: int, db: Session = Depends(get_db)):
     if not stokvel:
         raise HTTPException(status_code=404, detail="Stokvel not found")
     
-    members_count = db.query(Member).filter(Member.stokvel_id == stokvel_id).count()
-    total_contributions = db.query(Contribution).join(Member).filter(
-        Member.stokvel_id == stokvel_id
-    ).count()
+    enrollments_count = db.query(StokvelEnrollment).filter(StokvelEnrollment.stokvelId == stokvel_id).count()
+    total_payments = db.query(Payments).filter(Payments.stokvelId == stokvel_id).count()
     
     from sqlalchemy import func
-    total_amount = db.query(func.sum(Contribution.amount)).join(Member).filter(
-        Member.stokvel_id == stokvel_id
+    total_amount = db.query(func.sum(Payments.amount)).filter(
+        Payments.stokvelId == stokvel_id
     ).scalar() or 0
     
     return {
         "stokvel": stokvel,
-        "members_count": members_count,
-        "total_contributions": total_contributions,
+        "enrollments_count": enrollments_count,
+        "total_payments": total_payments,
         "total_amount": float(total_amount)
     }
 

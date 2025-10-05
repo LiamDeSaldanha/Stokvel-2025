@@ -58,13 +58,13 @@ class StokvelEnrollment(Base):
     
     id = Column(Integer, primary_key=True, index=True)
     userId = Column(Integer, ForeignKey("users.id"), nullable=False)
-    stovelId = Column(Integer, ForeignKey("stokvels.id"), nullable=False)
+    stokvelId = Column(Integer, ForeignKey("stokvels.id"), nullable=False)
     isAdmin = Column(Boolean, default=False, nullable=False)
     enrolled_at = Column(DateTime(timezone=True), server_default=func.now())
     
     # Relationships
     user = relationship("User", foreign_keys=[userId])
-    stokvel = relationship("Stokvel", foreign_keys=[stovelId])
+    stokvel = relationship("Stokvel", foreign_keys=[stokvelId])
 
 
 
@@ -98,12 +98,11 @@ class UserResponse(UserBase):
     model_config = ConfigDict(from_attributes=True)
     
     id: int
-    stokvel_id: int
     joined_at: datetime
 
 class StokvelEnrollmentBase(BaseModel):
     userId: int
-    stovelId: int
+    stokvelId: int
     isAdmin: bool = False
 
 class StokvelEnrollmentCreate(StokvelEnrollmentBase):
@@ -116,7 +115,7 @@ class StokvelEnrollmentResponse(StokvelEnrollmentBase):
     enrolled_at: datetime
 
 class PaymentsBase(BaseModel):
-    userid: int
+    userId: int
     stokvelId: int
     amount: float
 
