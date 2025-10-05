@@ -83,10 +83,10 @@ async def get_stokvel_by_id(ctx: RunContext[StokvelChatbotDependencies], stokvel
         return None
     
     # Get enrollment count
-    enrollment_count = db.query(StokvelEnrollment).filter(StokvelEnrollment.stokvelId == stokvel_id).count()
+    enrollment_count = db.query(StokvelEnrollment).filter(StokvelEnrollment.stokvel_id == stokvel_id).count()
     
     # Get total payments
-    total_payments = db.query(Payments).filter(Payments.stokvelId == stokvel_id).count()
+    total_payments = db.query(Payments).filter(Payments.stokvel_id == stokvel_id).count()
     
     return {
         "id": stokvel.id,
@@ -108,11 +108,11 @@ async def get_stokvel_members(ctx: RunContext[StokvelChatbotDependencies], stokv
     """Get all members enrolled in a specific stokvel"""
     db = ctx.deps.db
     
-    enrollments = db.query(StokvelEnrollment).filter(StokvelEnrollment.stokvelId == stokvel_id).all()
+    enrollments = db.query(StokvelEnrollment).filter(StokvelEnrollment.stokvel_id == stokvel_id).all()
     
     result = []
     for enrollment in enrollments:
-        user = db.query(User).filter(User.id == enrollment.userId).first()
+        user = db.query(User).filter(User.id == enrollment.userid).first()
         if user:
             result.append({
                 "user_id": user.id,
@@ -130,11 +130,11 @@ async def get_user_stokvels(ctx: RunContext[StokvelChatbotDependencies], user_id
     """Get all stokvels a user is enrolled in"""
     db = ctx.deps.db
     
-    enrollments = db.query(StokvelEnrollment).filter(StokvelEnrollment.userId == user_id).all()
+    enrollments = db.query(StokvelEnrollment).filter(StokvelEnrollment.userid == user_id).all()
     
     result = []
     for enrollment in enrollments:
-        stokvel = db.query(Stokvel).filter(Stokvel.id == enrollment.stokvelId).first()
+        stokvel = db.query(Stokvel).filter(Stokvel.id == enrollment.stokvel_id).first()
         if stokvel:
             result.append({
                 "stokvel_id": stokvel.id,
@@ -156,17 +156,17 @@ async def get_payment_history(ctx: RunContext[StokvelChatbotDependencies], user_
     query = db.query(Payments)
     
     if user_id:
-        query = query.filter(Payments.userId == user_id)
+        query = query.filter(Payments.userid == user_id)
     
     if stokvel_id:
-        query = query.filter(Payments.stokvelId == stokvel_id)
+        query = query.filter(Payments.stokvel_id == stokvel_id)
     
     payments = query.order_by(Payments.date.desc()).limit(50).all()
     
     result = []
     for payment in payments:
-        user = db.query(User).filter(User.id == payment.userId).first()
-        stokvel = db.query(Stokvel).filter(Stokvel.id == payment.stokvelId).first()
+        user = db.query(User).filter(User.id == payment.userid).first()
+        stokvel = db.query(Stokvel).filter(Stokvel.id == payment.stokvel_id).first()
         
         result.append({
             "payment_id": payment.id,
@@ -189,16 +189,16 @@ async def get_stokvel_statistics(ctx: RunContext[StokvelChatbotDependencies], st
         return None
     
     # Count members
-    member_count = db.query(StokvelEnrollment).filter(StokvelEnrollment.stokvelId == stokvel_id).count()
+    member_count = db.query(StokvelEnrollment).filter(StokvelEnrollment.stokvel_id == stokvel_id).count()
     
     # Count admins
     admin_count = db.query(StokvelEnrollment).filter(
-        StokvelEnrollment.stokvelId == stokvel_id,
+        StokvelEnrollment.stokvel_id == stokvel_id,
         StokvelEnrollment.isAdmin == True
     ).count()
     
     # Get payment statistics
-    payments = db.query(Payments).filter(Payments.stokvelId == stokvel_id).all()
+    payments = db.query(Payments).filter(Payments.stokvel_id == stokvel_id).all()
     total_collected = sum(p.amount for p in payments) if payments else 0
     payment_count = len(payments)
     
@@ -231,8 +231,8 @@ async def calculate_emergency_withdrawal(ctx: RunContext[StokvelChatbotDependenc
     
     # Check enrollment
     enrollment = db.query(StokvelEnrollment).filter(
-        StokvelEnrollment.userId == user_id,
-        StokvelEnrollment.stokvelId == stokvel_id
+        StokvelEnrollment.userid == user_id,
+        StokvelEnrollment.stokvel_id == stokvel_id
     ).first()
     
     if not enrollment:
@@ -241,8 +241,8 @@ async def calculate_emergency_withdrawal(ctx: RunContext[StokvelChatbotDependenc
     # Calculate total contributions
     from sqlalchemy import func
     total_contributions = db.query(func.sum(Payments.amount)).filter(
-        Payments.userId == user_id,
-        Payments.stokvelId == stokvel_id
+        Payments.userid == user_id,
+        Payments.stokvel_id == stokvel_id
     ).scalar() or 0
     
     if total_contributions <= 0:
@@ -274,7 +274,7 @@ async def search_stokvels_by_name(ctx: RunContext[StokvelChatbotDependencies], s
     
     result = []
     for stokvel in stokvels:
-        member_count = db.query(StokvelEnrollment).filter(StokvelEnrollment.stokvelId == stokvel.id).count()
+        member_count = db.query(StokvelEnrollment).filter(StokvelEnrollment.stokvel_id == stokvel.id).count()
         
         result.append({
             "id": stokvel.id,

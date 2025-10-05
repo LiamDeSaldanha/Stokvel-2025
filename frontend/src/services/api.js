@@ -31,6 +31,12 @@ export const stokvelAPI = {
   createPayment: (data) => api.post('/payments/', data),
   getUserPayments: (userId) => api.get(`/payments/user/${userId}`),
   
+  // Payments endpoints
+  getAllPayments: () => api.get('/payments/'),
+  getStokvelPayments: (stokvelId) => api.get(`/stokvels/${stokvelId}/payments/`),
+  getUserPayments: (userId) => api.get(`/users/${userId}/payments/`),
+  createPayment: (data) => api.post('/payments/', data),
+  
   // Dashboard
   getDashboard: (stokvelId) => api.get(`/dashboard/${stokvelId}`),
   

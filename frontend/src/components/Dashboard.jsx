@@ -1,28 +1,47 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { stokvelAPI } from '../services/api'
-import { Users, DollarSign, TrendingUp, Plus } from 'lucide-react'
+import { Users, DollarSign, Plus } from 'lucide-react'
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 
 export function Dashboard() {
   const [stokvels, setStokvels] = useState([])
+  const [payments, setPayments] = useState([])
+  const [selectedStokvel, setSelectedStokvel] = useState('')
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+
+  // Get unique stokvels from payments
+  const uniqueStokvels = [...new Set(payments.map(p => p.stokvel_name))]
   
   useEffect(() => {
-    fetchStokvels()
+    fetchData()
   }, [])
   
-  const fetchStokvels = async () => {
+  const fetchData = async () => {
     try {
-      const response = await stokvelAPI.getAllStokvels()
-      setStokvels(response.data)
+      const [stokvelsResponse, paymentsResponse] = await Promise.all([
+        stokvelAPI.getAllStokvels(),
+        stokvelAPI.getAllPayments()
+      ])
+      setStokvels(stokvelsResponse.data)
+      setPayments(paymentsResponse.data)
       setError(null)
     } catch (err) {
-      setError('Failed to fetch stokvels')
+      setError('Failed to fetch data')
       console.error(err)
     } finally {
       setLoading(false)
     }
+  }
+
+  // Filter payments based on selected stokvel
+  const filteredPayments = selectedStokvel
+    ? payments.filter(p => p.stokvel_name === selectedStokvel)
+    : payments
+
+  const handleStokvelChange = (event) => {
+    setSelectedStokvel(event.target.value)
   }
   
   if (loading) {
@@ -34,9 +53,23 @@ export function Dashboard() {
   }
   
   return (
-    <div>
+    <div className="min-h-screen bg-gray-50 p-8">
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
+        <div className="flex items-center space-x-4">
+          <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
+          <select
+            value={selectedStokvel}
+            onChange={handleStokvelChange}
+            className="border border-gray-300 rounded-lg px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="">All Stokvels</option>
+            {uniqueStokvels.map((stokvel) => (
+              <option key={stokvel} value={stokvel}>
+                {stokvel}
+              </option>
+            ))}
+          </select>
+        </div>
         <Link
           to="/stokvels/create"
           className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center space-x-2"
@@ -53,81 +86,66 @@ export function Dashboard() {
       )}
       
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
         <div className="bg-white p-6 rounded-lg shadow">
           <div className="flex items-center">
-            <Users className="h-10 w-10 text-blue-600" />
-            <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">Total Stokvels</p>
-              <p className="text-2xl font-bold text-gray-900">{stokvels.length}</p>
-            </div>
-          </div>
-        </div>
-        
-        <div className="bg-white p-6 rounded-lg shadow">
-          <div className="flex items-center">
-            <DollarSign className="h-10 w-10 text-green-600" />
+            <Users className="h-10 w-10 text-green-600" />
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-600">Active Members</p>
-              <p className="text-2xl font-bold text-gray-900">-</p>
+              <p className="text-2xl font-bold text-gray-900">
+                {new Set(filteredPayments.map(p => p.userid)).size}
+              </p>
             </div>
           </div>
         </div>
         
         <div className="bg-white p-6 rounded-lg shadow">
           <div className="flex items-center">
-            <TrendingUp className="h-10 w-10 text-purple-600" />
+            <DollarSign className="h-10 w-10 text-blue-600" />
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-600">Total Contributions</p>
-              <p className="text-2xl font-bold text-gray-900">R 0</p>
+              <p className="text-2xl font-bold text-gray-900">
+                R {filteredPayments.reduce((sum, p) => sum + Number(p.amount), 0).toFixed(2)}
+              </p>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Individual Contributions Graph */}
+      {selectedStokvel && (
+        <div className="bg-white p-6 rounded-lg shadow mb-8">
+          <h2 className="text-lg font-semibold text-gray-900 mb-4">Individual Contributions for {selectedStokvel}</h2>
+          <div className="h-[400px] w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart
+                data={Object.entries(filteredPayments.reduce((acc, payment) => {
+                  acc[payment.userid] = (acc[payment.userid] || 0) + Number(payment.amount);
+                  return acc;
+                }, {})).map(([userid, amount]) => ({
+                  userid: `Member ${userid}`,
+                  amount: amount
+                }))}
+                margin={{ top: 20, right: 30, left: 40, bottom: 50 }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="userid" angle={-45} textAnchor="end" interval={0} height={60} />
+                <YAxis
+                  label={{ value: 'Amount (R)', angle: -90, position: 'insideLeft' }}
+                  tickFormatter={(value) => `R ${value}`}
+                />
+                <Tooltip
+                  formatter={(value) => [`R ${value.toFixed(2)}`, 'Total Contribution']}
+                  labelFormatter={(label) => `${label}`}
+                />
+                <Bar dataKey="amount" fill="#3B82F6" />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+      )}
       
-      {/* Recent Stokvels */}
-      <div className="bg-white rounded-lg shadow">
-        <div className="px-6 py-4 border-b border-gray-200">
-          <h2 className="text-lg font-semibold text-gray-900">Recent Stokvels</h2>
-        </div>
-        
-        {stokvels.length === 0 ? (
-          <div className="p-6 text-center">
-            <Users className="mx-auto h-12 w-12 text-gray-400" />
-            <h3 className="mt-2 text-sm font-medium text-gray-900">No stokvels</h3>
-            <p className="mt-1 text-sm text-gray-500">Get started by creating a new stokvel.</p>
-            <div className="mt-6">
-              <Link
-                to="/stokvels/create"
-                className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
-              >
-                <Plus className="-ml-1 mr-2 h-5 w-5" />
-                New Stokvel
-              </Link>
-            </div>
-          </div>
-        ) : (
-          <div className="divide-y divide-gray-200">
-            {stokvels.slice(0, 5).map((stokvel) => (
-              <Link
-                key={stokvel.id}
-                to={`/stokvels/${stokvel.id}`}
-                className="block px-6 py-4 hover:bg-gray-50"
-              >
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm font-medium text-gray-900">{stokvel.name}</p>
-                    <p className="text-sm text-gray-500">{stokvel.description}</p>
-                  </div>
-                  <div className="text-sm text-gray-500">
-                    R {stokvel.contribution_amount} {stokvel.contribution_frequency}
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-        )}
-      </div>
+
     </div>
   )
 }

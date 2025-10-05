@@ -1,7 +1,7 @@
-from sqlalchemy import Column, Integer, String, Float, DateTime, ForeignKey, Text, Boolean
+from sqlalchemy import Column, Integer, String, Float, DateTime, ForeignKey, Text, Boolean, Numeric
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
-from sqlalchemy.sql import func
+from sqlalchemy.sql import func, text
 from pydantic import BaseModel, ConfigDict
 from datetime import datetime
 from typing import Optional, List
@@ -51,8 +51,8 @@ class User(Base):
         
         # Check if user is enrolled in the stokvel
         enrollment = db_session.query(StokvelEnrollment).filter(
-            StokvelEnrollment.userId == self.id,
-            StokvelEnrollment.stokvelId == stokvel_id
+            StokvelEnrollment.userid == self.id,
+            StokvelEnrollment.stokvel_id == stokvel_id
         ).first()
         
         if not enrollment:
@@ -73,8 +73,8 @@ class User(Base):
         
         # Calculate total contributions by this user to this stokvel
         total_contributions = db_session.query(func.sum(Payments.amount)).filter(
-            Payments.userId == self.id,
-            Payments.stokvelId == stokvel_id
+            Payments.userid == self.id,
+            Payments.stokvel_id == stokvel_id
         ).scalar() or 0
         
         if total_contributions <= 0:
@@ -106,8 +106,9 @@ class User(Base):
         
         # Record the withdrawal as a negative payment
         withdrawal_record = Payments(
-            userId=self.id,
-            stokvelId=stokvel_id,
+            userid=self.id,
+            stokvel_id=stokvel_id,
+            stokvel_name=stokvel.name,
             amount=-withdrawal_amount
         )
         db_session.add(withdrawal_record)
@@ -134,10 +135,30 @@ class Payments(Base):
     __tablename__ = "payments"
     
     id = Column(Integer, primary_key=True, index=True)
-    userId = Column(Integer, ForeignKey("users.id"), nullable=False)
-    stokvelId = Column(Integer, ForeignKey("stokvels.id"), nullable=False)
-    amount = Column(Float, nullable=False)
-    date = Column(DateTime(timezone=True), server_default=func.now())
+    userid = Column(Integer, ForeignKey("users.id"), nullable=False)
+    stokvel_id = Column(Integer, ForeignKey("stokvels.id"), nullable=False)
+    stokvel_name = Column(String, nullable=False)
+    amount = Column(Numeric(12, 2), nullable=False)
+    payment_date = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
+    payment_status = Column(Integer, default=0, nullable=False)
+    
+    @property
+    def compute_payment_status(self):
+        # Get the first and last day of the current month with UTC timezone
+        if not self.payment_date:
+            return 0
+            
+        today = datetime.now(self.payment_date.tzinfo)  
+        start_of_month = datetime(today.year, today.month, 1, tzinfo=self.payment_date.tzinfo)
+        if today.month == 12:
+            end_of_month = datetime(today.year + 1, 1, 1, tzinfo=self.payment_date.tzinfo)
+        else:
+            end_of_month = datetime(today.year, today.month + 1, 1, tzinfo=self.payment_date.tzinfo)
+        
+        # Check if payment date is within the current month
+        if start_of_month <= self.payment_date < end_of_month:
+            return 1
+        return 0
     
     # Relationships
     user = relationship("User", back_populates="payments")
@@ -147,8 +168,8 @@ class StokvelEnrollment(Base):
     __tablename__ = "stokvel_enrollment"
     
     id = Column(Integer, primary_key=True, index=True)
-    userId = Column(Integer, ForeignKey("users.id"), nullable=False)
-    stokvelId = Column(Integer, ForeignKey("stokvels.id"), nullable=False)
+    userid = Column(Integer, ForeignKey("users.id"), nullable=False)
+    stokvel_id = Column(Integer, ForeignKey("stokvels.id"), nullable=False)
     isAdmin = Column(Boolean, default=False, nullable=False)
     enrolled_at = Column(DateTime(timezone=True), server_default=func.now())
     
@@ -156,8 +177,34 @@ class StokvelEnrollment(Base):
     user = relationship("User", back_populates="enrollments")
     stokvel = relationship("Stokvel", back_populates="enrollments")
 
+class EmergencyWithdrawalRequest(Base):
+    __tablename__ = "emergency_withdrawal_request"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    userid = Column(Integer, ForeignKey("users.id"), nullable=False)
+    stokvel_id = Column(Integer, ForeignKey("stokvels.id"), nullable=False)
+    reason = Column(Text, nullable=False)
+    requested_amount = Column(Numeric(12, 2), nullable=False)
+    status = Column(String, default="pending", nullable=False)  # pending, approved, rejected
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    
+    # Relationships
+    user = relationship("User")
+    stokvel = relationship("Stokvel")
+    approvals = relationship("EmergencyWithdrawalApproval", back_populates="request")
 
-
+class EmergencyWithdrawalApproval(Base):
+    __tablename__ = "emergency_withdrawal_approval"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    request_id = Column(Integer, ForeignKey("emergency_withdrawal_request.id"), nullable=False)
+    userid = Column(Integer, ForeignKey("users.id"), nullable=False)
+    vote = Column(Boolean, nullable=False)  # True for approve, False for reject
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    
+    # Relationships
+    request = relationship("EmergencyWithdrawalRequest", back_populates="approvals")
+    user = relationship("User")
 
 # Pydantic Models for API
 class StokvelBase(BaseModel):
@@ -199,8 +246,8 @@ class UserResponse(BaseModel):
     joined_at: datetime
 
 class StokvelEnrollmentBase(BaseModel):
-    userId: int
-    stokvelId: int
+    userid: int
+    stokvel_id: int
     isAdmin: bool = False
 
 class StokvelEnrollmentCreate(StokvelEnrollmentBase):
@@ -213,9 +260,11 @@ class StokvelEnrollmentResponse(StokvelEnrollmentBase):
     enrolled_at: datetime
 
 class PaymentsBase(BaseModel):
-    userId: int
-    stokvelId: int
+    userid: int
+    stokvel_id: int
+    stokvel_name: str
     amount: float
+    payment_status: Optional[int] = 0
 
 class PaymentsCreate(PaymentsBase):
     pass
@@ -224,4 +273,35 @@ class PaymentsResponse(PaymentsBase):
     model_config = ConfigDict(from_attributes=True)
     
     id: int
-    date: datetime
+    payment_date: datetime
+
+# Emergency Withdrawal Models
+class EmergencyWithdrawalRequestBase(BaseModel):
+    userid: int
+    stokvel_id: int
+    reason: str
+    requested_amount: float
+
+class EmergencyWithdrawalRequestCreate(EmergencyWithdrawalRequestBase):
+    pass
+
+class EmergencyWithdrawalRequestResponse(EmergencyWithdrawalRequestBase):
+    model_config = ConfigDict(from_attributes=True)
+    
+    id: int
+    status: str
+    created_at: datetime
+
+class EmergencyWithdrawalApprovalBase(BaseModel):
+    request_id: int
+    userid: int
+    vote: bool
+
+class EmergencyWithdrawalApprovalCreate(EmergencyWithdrawalApprovalBase):
+    pass
+
+class EmergencyWithdrawalApprovalResponse(EmergencyWithdrawalApprovalBase):
+    model_config = ConfigDict(from_attributes=True)
+    
+    id: int
+    created_at: datetime
