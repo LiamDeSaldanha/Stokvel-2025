@@ -107,14 +107,24 @@ export function StokvelDetail() {
   
   return (
     <div>
-      <div className="flex items-center mb-8">
+      <div className="flex items-center justify-between mb-8">
+        <div className="flex items-center">
+          <button
+            onClick={() => navigate('/stokvels')}
+            className="mr-4 p-2 text-gray-600 hover:text-gray-900"
+          >
+            <ArrowLeft className="h-5 w-5" />
+          </button>
+          <h1 className="text-3xl font-bold text-gray-900">{stokvel.name}</h1>
+        </div>
+        
         <button
-          onClick={() => navigate('/stokvels')}
-          className="mr-4 p-2 text-gray-600 hover:text-gray-900"
+          onClick={() => navigate(`/payment/${stokvel.id}`)}
+          className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 flex items-center space-x-2 transition-colors"
         >
-          <ArrowLeft className="h-5 w-5" />
+          <DollarSign className="h-4 w-4" />
+          <span>Make Payment</span>
         </button>
-        <h1 className="text-3xl font-bold text-gray-900">{stokvel.name}</h1>
       </div>
       
       {/* Stokvel Info */}

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Users, Home, Plus, Bot } from 'lucide-react'
+import { Users, Home, Plus, Bot, LogIn, UserPlus, Upload, CreditCard } from 'lucide-react'
 
 export function Navbar() {
   const location = useLocation()
@@ -24,6 +24,14 @@ export function Navbar() {
               className={`px-3 py-2 rounded-md text-sm font-medium flex items-center space-x-1 ${isActive('/')}`}
             >
               <Home className="h-4 w-4" />
+              <span>Home</span>
+            </Link>
+            
+            <Link
+              to="/dashboard"
+              className={`px-3 py-2 rounded-md text-sm font-medium flex items-center space-x-1 ${isActive('/dashboard')}`}
+            >
+              <Users className="h-4 w-4" />
               <span>Dashboard</span>
             </Link>
             
@@ -44,11 +52,43 @@ export function Navbar() {
             </Link>
             
             <Link
+              to="/payment"
+              className={`px-3 py-2 rounded-md text-sm font-medium flex items-center space-x-1 ${isActive('/payment')}`}
+            >
+              <CreditCard className="h-4 w-4" />
+              <span>Make Payment</span>
+            </Link>
+            
+            <Link
+              to="/upload"
+              className={`px-3 py-2 rounded-md text-sm font-medium flex items-center space-x-1 ${isActive('/upload')}`}
+            >
+              <Upload className="h-4 w-4" />
+              <span>Upload</span>
+            </Link>
+            
+            <Link
               to="/chat"
               className={`px-3 py-2 rounded-md text-sm font-medium flex items-center space-x-1 ${isActive('/chat')}`}
             >
               <Bot className="h-4 w-4" />
               <span>AI Chat</span>
+            </Link>
+            
+            <Link
+              to="/login"
+              className={`px-3 py-2 rounded-md text-sm font-medium flex items-center space-x-1 ${isActive('/login')}`}
+            >
+              <LogIn className="h-4 w-4" />
+              <span>Login</span>
+            </Link>
+            
+            <Link
+              to="/register"
+              className={`px-3 py-2 rounded-md text-sm font-medium flex items-center space-x-1 ${isActive('/register')}`}
+            >
+              <UserPlus className="h-4 w-4" />
+              <span>Register</span>
             </Link>
           </div>
         </div>
