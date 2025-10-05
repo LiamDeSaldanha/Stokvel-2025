@@ -2,7 +2,7 @@
 
 services:
   db:
-    image: postgres:17
+    image: postgres:15-alpine
     container_name: my_postgres_stokvel
     restart: always
     environment:
@@ -19,12 +19,12 @@ services:
     env_file:
       - .env
     ports:
-      - "5000:5000"   # backend exposed on localhost:5000
+      - "8000:8000"   # backend exposed on localhost:8000
     volumes:
       - ./backend:/app   # hot-reload for dev
     environment:
       - PYTHONUNBUFFERED=1
-      - DATABASE_URL=postgresql://admin:secret@db:5432/mydb  # connection string
+      - DATABASE_URL=postgresql://admin:secret@db:5432/stokvel
     depends_on:
       - db
 
