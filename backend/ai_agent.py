@@ -220,6 +220,50 @@ async def get_stokvel_statistics(ctx: RunContext[StokvelChatbotDependencies], st
 
 
 @stokvel_agent.tool
+async def calculate_emergency_withdrawal(ctx: RunContext[StokvelChatbotDependencies], user_id: int, stokvel_id: int) -> Dict[str, Any]:
+    """Calculate what a user would receive in an emergency withdrawal (simulation only)"""
+    db = ctx.deps.db
+    
+    # Get user
+    user = db.query(User).filter(User.id == user_id).first()
+    if not user:
+        return {"error": "User not found"}
+    
+    # Check enrollment
+    enrollment = db.query(StokvelEnrollment).filter(
+        StokvelEnrollment.userId == user_id,
+        StokvelEnrollment.stokvelId == stokvel_id
+    ).first()
+    
+    if not enrollment:
+        return {"error": "User is not enrolled in this stokvel"}
+    
+    # Calculate total contributions
+    from sqlalchemy import func
+    total_contributions = db.query(func.sum(Payments.amount)).filter(
+        Payments.userId == user_id,
+        Payments.stokvelId == stokvel_id
+    ).scalar() or 0
+    
+    if total_contributions <= 0:
+        return {"error": "No contributions found"}
+    
+    # Calculate penalty and withdrawal amount
+    penalty_rate = 0.10  # 10% penalty
+    penalty_amount = total_contributions * penalty_rate
+    withdrawal_amount = total_contributions - penalty_amount
+    
+    return {
+        "user_id": user_id,
+        "stokvel_id": stokvel_id,
+        "total_contributions": total_contributions,
+        "penalty_rate": "10%",
+        "penalty_amount": penalty_amount,
+        "withdrawal_amount": withdrawal_amount,
+        "note": "This is a simulation. Actual withdrawal requires using the emergency withdrawal endpoint."
+    }
+
+@stokvel_agent.tool
 async def search_stokvels_by_name(ctx: RunContext[StokvelChatbotDependencies], search_term: str) -> List[Dict[str, Any]]:
     """Search for stokvels by name"""
     db = ctx.deps.db

@@ -145,6 +145,28 @@ async def get_user_payments(user_id: int, db: Session = Depends(get_db)):
     payments = db.query(Payments).filter(Payments.userId == user_id).all()
     return payments
 
+# Emergency withdrawal endpoint
+class EmergencyWithdrawRequest(BaseModel):
+    user_id: int
+    stokvel_id: int
+
+@app.post("/emergency-withdrawal")
+async def emergency_withdrawal(
+    withdrawal_request: EmergencyWithdrawRequest, 
+    db: Session = Depends(get_db)
+):
+    """Process an emergency withdrawal for a user from a stokvel"""
+    user = db.query(User).filter(User.id == withdrawal_request.user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    result = user.emergency_withdraw(withdrawal_request.stokvel_id, db)
+    
+    if not result["success"]:
+        raise HTTPException(status_code=400, detail=result["message"])
+    
+    return result
+
 # Dashboard endpoint
 @app.get("/dashboard/{stokvel_id}")
 async def get_dashboard_data(stokvel_id: int, db: Session = Depends(get_db)):

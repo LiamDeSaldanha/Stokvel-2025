@@ -23,7 +23,8 @@ class Stokvel(Base):
     end_at = Column(DateTime(timezone=True))
     
     # Relationships
-    users = relationship("User", back_populates="stokvel")
+    enrollments = relationship("StokvelEnrollment", back_populates="stokvel")
+    payments = relationship("Payments", back_populates="stokvel")
 
 class User(Base):
     __tablename__ = "users"
@@ -32,26 +33,115 @@ class User(Base):
     name = Column(String, nullable=False)
     surname = Column(String, nullable=False)
     password = Column(String, nullable=False)
-    email = Column(String, )
+    email = Column(String )
     id_number = Column(String)
-    stokvel_id = Column(Integer, ForeignKey("stokvels.id"))
     joined_at = Column(DateTime(timezone=True), server_default=func.now())
+    verified = Column(Boolean)
     
     # Relationships
-    stokvel = relationship("Stokvel", back_populates="users")
+    enrollments = relationship("StokvelEnrollment", back_populates="user")
+    payments = relationship("Payments", back_populates="user")
+    
+    def emergency_withdraw(self, stokvel_id: int, db_session) -> dict:
+        """
+        Emergency withdrawal method for a user from a specific stokvel.
+        Calculates the user's total contributions and allows withdrawal with potential penalties.
+        """
+        from sqlalchemy import func
+        
+        # Check if user is enrolled in the stokvel
+        enrollment = db_session.query(StokvelEnrollment).filter(
+            StokvelEnrollment.userId == self.id,
+            StokvelEnrollment.stokvelId == stokvel_id
+        ).first()
+        
+        if not enrollment:
+            return {
+                "success": False,
+                "message": "User is not enrolled in this stokvel",
+                "withdrawal_amount": 0
+            }
+        
+        # Get the stokvel details
+        stokvel = db_session.query(Stokvel).filter(Stokvel.id == stokvel_id).first()
+        if not stokvel:
+            return {
+                "success": False,
+                "message": "Stokvel not found",
+                "withdrawal_amount": 0
+            }
+        
+        # Calculate total contributions by this user to this stokvel
+        total_contributions = db_session.query(func.sum(Payments.amount)).filter(
+            Payments.userId == self.id,
+            Payments.stokvelId == stokvel_id
+        ).scalar() or 0
+        
+        if total_contributions <= 0:
+            return {
+                "success": False,
+                "message": "No contributions found for withdrawal",
+                "withdrawal_amount": 0
+            }
+        
+        # Calculate penalty (e.g., 10% penalty for emergency withdrawal)
+        penalty_rate = 0.10  # 10% penalty
+        penalty_amount = total_contributions * penalty_rate
+        withdrawal_amount = total_contributions - penalty_amount
+        
+        # Check if stokvel has enough net value for withdrawal
+        if stokvel.net_value < withdrawal_amount:
+            return {
+                "success": False,
+                "message": "Insufficient funds in stokvel for withdrawal",
+                "withdrawal_amount": 0,
+                "available_amount": stokvel.net_value
+            }
+        
+        # Update stokvel net value
+        stokvel.net_value -= int(withdrawal_amount)
+        
+        # Remove user from stokvel enrollment
+        db_session.delete(enrollment)
+        
+        # Record the withdrawal as a negative payment
+        withdrawal_record = Payments(
+            userId=self.id,
+            stokvelId=stokvel_id,
+            amount=-withdrawal_amount
+        )
+        db_session.add(withdrawal_record)
+        
+        try:
+            db_session.commit()
+            return {
+                "success": True,
+                "message": "Emergency withdrawal successful",
+                "total_contributions": total_contributions,
+                "penalty_amount": penalty_amount,
+                "withdrawal_amount": withdrawal_amount,
+                "remaining_stokvel_value": stokvel.net_value
+            }
+        except Exception as e:
+            db_session.rollback()
+            return {
+                "success": False,
+                "message": f"Database error during withdrawal: {str(e)}",
+                "withdrawal_amount": 0
+            }
 
 class Payments(Base):
     __tablename__ = "payments"
     
     id = Column(Integer, primary_key=True, index=True)
-    userid = Column(Integer, ForeignKey("users.id"), nullable=False)
+    userId = Column(Integer, ForeignKey("users.id"), nullable=False)
     stokvelId = Column(Integer, ForeignKey("stokvels.id"), nullable=False)
     amount = Column(Float, nullable=False)
     date = Column(DateTime(timezone=True), server_default=func.now())
     
     # Relationships
-    user = relationship("User", foreign_keys=[userid])
-    stokvel = relationship("Stokvel", foreign_keys=[stokvelId])
+    user = relationship("User", back_populates="payments")
+    stokvel = relationship("Stokvel", back_populates="payments")
 
 class StokvelEnrollment(Base):
     __tablename__ = "stokvel_enrollment"
@@ -63,8 +153,8 @@ class StokvelEnrollment(Base):
     enrolled_at = Column(DateTime(timezone=True), server_default=func.now())
     
     # Relationships
-    user = relationship("User", foreign_keys=[userId])
-    stokvel = relationship("Stokvel", foreign_keys=[stokvelId])
+    user = relationship("User", back_populates="enrollments")
+    stokvel = relationship("Stokvel", back_populates="enrollments")
 
 
 
@@ -72,10 +162,12 @@ class StokvelEnrollment(Base):
 # Pydantic Models for API
 class StokvelBase(BaseModel):
     name: str
-    description: Optional[str] = None
-    contribution_amount: float
-    contribution_frequency: str
-    payout_frequency: str
+    number_people: Optional[int] = None
+    goal: Optional[str] = None
+    monthly_contribution: Optional[int] = None
+    net_value: int
+    interest_rate: int
+    end_at: Optional[datetime] = None
 
 class StokvelCreate(StokvelBase):
     pass
@@ -84,20 +176,26 @@ class StokvelResponse(StokvelBase):
     model_config = ConfigDict(from_attributes=True)
     
     id: int
-    created_at: datetime
+    started_at: Optional[datetime] = None
 
 class UserBase(BaseModel):
     name: str
-    email: str
-    phone: Optional[str] = None
+    surname: str
+    password: str
+    email: Optional[str] = None
+    id_number: Optional[str] = None
 
 class UserCreate(UserBase):
     pass
 
-class UserResponse(UserBase):
+class UserResponse(BaseModel):
     model_config = ConfigDict(from_attributes=True)
     
     id: int
+    name: str
+    surname: str
+    email: Optional[str] = None
+    id_number: Optional[str] = None
     joined_at: datetime
 
 class StokvelEnrollmentBase(BaseModel):
