@@ -1,7 +1,7 @@
-from sqlalchemy import Column, Integer, String, Float, DateTime, ForeignKey, Text, Boolean
+from sqlalchemy import Column, Integer, String, Float, DateTime, ForeignKey, Text, Boolean, Numeric
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
-from sqlalchemy.sql import func
+from sqlalchemy.sql import func, text
 from pydantic import BaseModel, ConfigDict
 from datetime import datetime
 from typing import Optional, List
@@ -44,30 +44,45 @@ class Payments(Base):
     __tablename__ = "payments"
     
     id = Column(Integer, primary_key=True, index=True)
-    userid = Column(Integer, ForeignKey("users.id"), nullable=False)
-    stokvelId = Column(Integer, ForeignKey("stokvels.id"), nullable=False)
-    amount = Column(Float, nullable=False)
-    date = Column(DateTime(timezone=True), server_default=func.now())
+    userid = Column(Integer, nullable=False)
+    stokvel_id = Column(Integer, nullable=False)
+    stokvel_name = Column(String, nullable=False)
+    amount = Column(Numeric(12, 2), nullable=False)
+    payment_date = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
+    payment_status = Column(Integer, default=0, nullable=False)
+    
+    @property
+    def compute_payment_status(self):
+        # Get the first and last day of the current month with UTC timezone
+        if not self.payment_date:
+            return 0
+            
+        today = datetime.now(self.payment_date.tzinfo)  
+        start_of_month = datetime(today.year, today.month, 1, tzinfo=self.payment_date.tzinfo)
+        if today.month == 12:
+            end_of_month = datetime(today.year + 1, 1, 1, tzinfo=self.payment_date.tzinfo)
+        else:
+            end_of_month = datetime(today.year, today.month + 1, 1, tzinfo=self.payment_date.tzinfo)
+        
+        # Check if payment date is within the current month
+        if start_of_month <= self.payment_date < end_of_month:
+            return 1
+        return 0
     
     # Relationships
-    user = relationship("User", foreign_keys=[userid])
-    stokvel = relationship("Stokvel", foreign_keys=[stokvelId])
 
 class StokvelEnrollment(Base):
     __tablename__ = "stokvel_enrollment"
     
     id = Column(Integer, primary_key=True, index=True)
     userId = Column(Integer, ForeignKey("users.id"), nullable=False)
-    stokvelId = Column(Integer, ForeignKey("stokvels.id"), nullable=False)
+    stokvel_id = Column(Integer, ForeignKey("stokvels.id"), nullable=False)
     isAdmin = Column(Boolean, default=False, nullable=False)
     enrolled_at = Column(DateTime(timezone=True), server_default=func.now())
     
     # Relationships
     user = relationship("User", foreign_keys=[userId])
-    stokvel = relationship("Stokvel", foreign_keys=[stokvelId])
-
-
-
+    stokvel = relationship("Stokvel", foreign_keys=[stokvel_id])
 
 # Pydantic Models for API
 class StokvelBase(BaseModel):
@@ -115,9 +130,11 @@ class StokvelEnrollmentResponse(StokvelEnrollmentBase):
     enrolled_at: datetime
 
 class PaymentsBase(BaseModel):
-    userId: int
-    stokvelId: int
+    userid: int
+    stokvel_id: int
+    stokvel_name: str
     amount: float
+    payment_status: Optional[int] = 0
 
 class PaymentsCreate(PaymentsBase):
     pass
@@ -126,4 +143,4 @@ class PaymentsResponse(PaymentsBase):
     model_config = ConfigDict(from_attributes=True)
     
     id: int
-    date: datetime
+    payment_date: datetime

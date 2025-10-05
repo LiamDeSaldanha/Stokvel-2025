@@ -5,24 +5,42 @@ import { Users, DollarSign, TrendingUp, Plus } from 'lucide-react'
 
 export function Dashboard() {
   const [stokvels, setStokvels] = useState([])
+  const [payments, setPayments] = useState([])
+  const [selectedStokvel, setSelectedStokvel] = useState('')
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+
+  // Get unique stokvels from payments
+  const uniqueStokvels = [...new Set(payments.map(p => p.stokvel_name))]
   
   useEffect(() => {
-    fetchStokvels()
+    fetchData()
   }, [])
   
-  const fetchStokvels = async () => {
+  const fetchData = async () => {
     try {
-      const response = await stokvelAPI.getAllStokvels()
-      setStokvels(response.data)
+      const [stokvelsResponse, paymentsResponse] = await Promise.all([
+        stokvelAPI.getAllStokvels(),
+        stokvelAPI.getAllPayments()
+      ])
+      setStokvels(stokvelsResponse.data)
+      setPayments(paymentsResponse.data)
       setError(null)
     } catch (err) {
-      setError('Failed to fetch stokvels')
+      setError('Failed to fetch data')
       console.error(err)
     } finally {
       setLoading(false)
     }
+  }
+
+  // Filter payments based on selected stokvel
+  const filteredPayments = selectedStokvel
+    ? payments.filter(p => p.stokvel_name === selectedStokvel)
+    : payments
+
+  const handleStokvelChange = (event) => {
+    setSelectedStokvel(event.target.value)
   }
   
   if (loading) {
@@ -36,7 +54,21 @@ export function Dashboard() {
   return (
     <div>
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
+        <div className="flex items-center space-x-4">
+          <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
+          <select
+            value={selectedStokvel}
+            onChange={handleStokvelChange}
+            className="border border-gray-300 rounded-lg px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="">All Stokvels</option>
+            {uniqueStokvels.map((stokvel) => (
+              <option key={stokvel} value={stokvel}>
+                {stokvel}
+              </option>
+            ))}
+          </select>
+        </div>
         <Link
           to="/stokvels/create"
           className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center space-x-2"
@@ -59,7 +91,9 @@ export function Dashboard() {
             <Users className="h-10 w-10 text-blue-600" />
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-600">Total Stokvels</p>
-              <p className="text-2xl font-bold text-gray-900">{stokvels.length}</p>
+              <p className="text-2xl font-bold text-gray-900">
+                {selectedStokvel ? 1 : new Set(payments.map(p => p.stokvel_name)).size}
+              </p>
             </div>
           </div>
         </div>
@@ -69,7 +103,9 @@ export function Dashboard() {
             <DollarSign className="h-10 w-10 text-green-600" />
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-600">Active Members</p>
-              <p className="text-2xl font-bold text-gray-900">-</p>
+              <p className="text-2xl font-bold text-gray-900">
+                {new Set(filteredPayments.map(p => p.userid)).size}
+              </p>
             </div>
           </div>
         </div>
@@ -79,7 +115,9 @@ export function Dashboard() {
             <TrendingUp className="h-10 w-10 text-purple-600" />
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-600">Total Contributions</p>
-              <p className="text-2xl font-bold text-gray-900">R 0</p>
+              <p className="text-2xl font-bold text-gray-900">
+                R {filteredPayments.reduce((sum, p) => sum + Number(p.amount), 0).toFixed(2)}
+              </p>
             </div>
           </div>
         </div>

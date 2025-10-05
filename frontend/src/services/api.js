@@ -27,6 +27,12 @@ export const stokvelAPI = {
   getContributions: (stokvelId) => api.get(`/stokvels/${stokvelId}/contributions/`),
   getMemberContributions: (memberId) => api.get(`/members/${memberId}/contributions/`),
   
+  // Payments endpoints
+  getAllPayments: () => api.get('/payments/'),
+  getStokvelPayments: (stokvelId) => api.get(`/stokvels/${stokvelId}/payments/`),
+  getUserPayments: (userId) => api.get(`/users/${userId}/payments/`),
+  createPayment: (data) => api.post('/payments/', data),
+  
   // Dashboard
   getDashboard: (stokvelId) => api.get(`/dashboard/${stokvelId}`),
 }
