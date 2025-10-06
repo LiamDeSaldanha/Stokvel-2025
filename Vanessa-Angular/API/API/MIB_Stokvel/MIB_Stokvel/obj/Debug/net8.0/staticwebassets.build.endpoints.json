@@ -1,0 +1,252 @@
+{
+  "Version": 1,
+  "ManifestType": "Build",
+  "Endpoints": [
+    {
+      "Route": "documents/ERD.fotia2lcqa.pdf",
+      "AssetFile": "documents/ERD.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "819582"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"v0hMmSBtlC5Gzu3tAB2HESCjQTcaNPTyYd2XFzCyFys=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 05 Oct 2025 18:32:36 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "fotia2lcqa"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-v0hMmSBtlC5Gzu3tAB2HESCjQTcaNPTyYd2XFzCyFys="
+        },
+        {
+          "Name": "label",
+          "Value": "documents/ERD.pdf"
+        }
+      ]
+    },
+    {
+      "Route": "documents/ERD.pdf",
+      "AssetFile": "documents/ERD.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "819582"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"v0hMmSBtlC5Gzu3tAB2HESCjQTcaNPTyYd2XFzCyFys=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 05 Oct 2025 18:32:36 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-v0hMmSBtlC5Gzu3tAB2HESCjQTcaNPTyYd2XFzCyFys="
+        }
+      ]
+    },
+    {
+      "Route": "documents/Informatics Application Form - TA's, AL's for 2026.15pizjp2nk.pdf",
+      "AssetFile": "documents/Informatics Application Form - TA's, AL's for 2026.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "252494"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"xY40BEh550kkuPIufuN1qzw2XZ/NScs+Btiq51kLlQo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 05 Oct 2025 18:28:15 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "15pizjp2nk"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-xY40BEh550kkuPIufuN1qzw2XZ/NScs+Btiq51kLlQo="
+        },
+        {
+          "Name": "label",
+          "Value": "documents/Informatics Application Form - TA's, AL's for 2026.pdf"
+        }
+      ]
+    },
+    {
+      "Route": "documents/Informatics Application Form - TA's, AL's for 2026.pdf",
+      "AssetFile": "documents/Informatics Application Form - TA's, AL's for 2026.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "252494"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"xY40BEh550kkuPIufuN1qzw2XZ/NScs+Btiq51kLlQo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 05 Oct 2025 18:28:15 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-xY40BEh550kkuPIufuN1qzw2XZ/NScs+Btiq51kLlQo="
+        }
+      ]
+    },
+    {
+      "Route": "documents/Team06_Technical ERD.mbsk3ydaw2.png",
+      "AssetFile": "documents/Team06_Technical ERD.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1454660"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Ysc/zFKPBdw94EqTns+p1ExIhBcNosi9KiVOY7xo+5Y=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 05 Oct 2025 18:22:55 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "mbsk3ydaw2"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Ysc/zFKPBdw94EqTns+p1ExIhBcNosi9KiVOY7xo+5Y="
+        },
+        {
+          "Name": "label",
+          "Value": "documents/Team06_Technical ERD.png"
+        }
+      ]
+    },
+    {
+      "Route": "documents/Team06_Technical ERD.png",
+      "AssetFile": "documents/Team06_Technical ERD.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1454660"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Ysc/zFKPBdw94EqTns+p1ExIhBcNosi9KiVOY7xo+5Y=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 05 Oct 2025 18:22:55 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Ysc/zFKPBdw94EqTns+p1ExIhBcNosi9KiVOY7xo+5Y="
+        }
+      ]
+    }
+  ]
+}

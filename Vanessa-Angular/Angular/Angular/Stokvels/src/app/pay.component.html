@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pay into Stockvel</title>
+  <link rel="stylesheet" href="pay.component.css">
+</head>
+<body>
+  <div class="page">
+    <div class="card">
+      <header class="card__header">
+        <h1 class="title">Pay into Stockvel</h1>
+        <p class="subtitle">Enter your amount and reference, then click Pay.</p>
+      </header>
+
+      <form class="form" id="payForm">
+        <!-- Name -->
+        <div class="field">
+          <label for="name">Your Name</label>
+          <input id="name" type="text" placeholder="e.g. Lwazi Mamelodi" required>
+        </div>
+
+        <!-- Amount -->
+        <div class="field">
+          <label for="amount">Amount (ZAR)</label>
+          <input id="amount" type="number" step="0.01" min="1" placeholder="e.g. 250.00" required>
+        </div>
+
+        <!-- Reference -->
+        <div class="field">
+          <label for="reference">Reference (optional)</label>
+          <input id="reference" type="text" placeholder="e.g. October savings">
+        </div>
+
+        <div class="actions">
+          <button type="submit" class="btn">Pay</button>
+        </div>
+
+        <p class="success-msg" id="successMsg" style="display: none;"></p>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Payment simulation (fake delay)
+    document.getElementById('payForm').addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevent form submission
+
+      const name = document.getElementById('name').value;
+      const amount = parseFloat(document.getElementById('amount').value);
+      const reference = document.getElementById('reference').value;
+
+      const successMsg = document.getElementById('successMsg');
+      successMsg.style.display = 'none'; // Hide message on each new form submit
+
+      // Simulate payment processing (fake delay)
+      setTimeout(() => {
+        const formattedAmount = `R${amount.toFixed(2)}`;
+        successMsg.textContent = `✅ Payment successful! ${name}, your contribution of ${formattedAmount} ${reference ? `(${reference})` : ''} has been received.`;
+        successMsg.style.display = 'block';
+      }, 1200); // 1.2 seconds delay for simulation
+    });
+  </script>
+</body>
+</html>

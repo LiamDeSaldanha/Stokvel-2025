@@ -1,0 +1,37 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\Charlie\\OneDrive - University of Pretoria\\Documents\\MIB\\API\\MIB_Stokvel\\MIB_Stokvel\\wwwroot\\documents\\ERD.pdf",
+      "PackagePath": "staticwebassets\\documents\\ERD.pdf"
+    },
+    {
+      "Id": "C:\\Users\\Charlie\\OneDrive - University of Pretoria\\Documents\\MIB\\API\\MIB_Stokvel\\MIB_Stokvel\\wwwroot\\documents\\Informatics Application Form - TA's, AL's for 2026.pdf",
+      "PackagePath": "staticwebassets\\documents\\Informatics Application Form - TA's, AL's for 2026.pdf"
+    },
+    {
+      "Id": "C:\\Users\\Charlie\\OneDrive - University of Pretoria\\Documents\\MIB\\API\\MIB_Stokvel\\MIB_Stokvel\\wwwroot\\documents\\Team06_Technical ERD.png",
+      "PackagePath": "staticwebassets\\documents\\Team06_Technical ERD.png"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.MIB_Stokvel.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.MIB_Stokvel.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.MIB_Stokvel.props",
+      "PackagePath": "build\\MIB_Stokvel.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.MIB_Stokvel.props",
+      "PackagePath": "buildMultiTargeting\\MIB_Stokvel.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.MIB_Stokvel.props",
+      "PackagePath": "buildTransitive\\MIB_Stokvel.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\MIB_Stokvel.props" />
+</Project>
