@@ -11,35 +11,9 @@
     ```bash
    docker compose up
     ```
-## Without Docker
 
-### How to setup backend
-```bash
-- cd backend
-- python -m venv venv
-- source venv/Scripts/activate  # Mac/Linux or gitbash
-- venv\Scripts\activate      # Windows (not gitbash)
-- pip install -r requirements.txt
-```
-            
-
-### How to setup frontend
-```bash
-- cd frontend
-- npm install
-- npm run dev
-```
-
-
-### To run backend
-```bash
-- cd backend
-- python main.py
-```
-
-### To run frontend
-```bash
-- cd frontend
-- npm run dev
-```
-
+# Team
+1. Nokwanda Biyela - okwandiswa@gmail.com
+2. Masengo Tshiembi - vanessatshiembi@gmail.com
+3. Ziyanda Mthethwa - mthethwaziyanda55@gmail.com
+4. Liam De Saldanha - liamdesaldanha2408@gmail.com
