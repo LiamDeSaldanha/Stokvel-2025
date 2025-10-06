@@ -92,7 +92,7 @@ const Login = () => {
       await new Promise(resolve => setTimeout(resolve, 1000));
       
       // On success, navigate to dashboard
-      navigate('/dashboard');
+      navigate('/upload');
     } catch (error) {
       setServerMsg('Login failed. Please check your credentials.');
     } finally {
