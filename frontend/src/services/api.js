@@ -25,7 +25,7 @@ export const stokvelAPI = {
   
   // Enrollment endpoints
   createEnrollment: (data) => api.post('/enrollments/', data),
-  getStokvelEnrollments: (stokvelId) => api.get(`/enrollments/stokvel/${stokvelId}`),
+  getStokvelEnrollments: (stokvelId) => api.get(`/stokvels/${stokvelId}/enrollments/`),
   
   // Payment endpoints
   createPayment: (data) => api.post('/payments/', data),

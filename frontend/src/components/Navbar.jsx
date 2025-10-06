@@ -6,22 +6,22 @@ export function Navbar() {
   const location = useLocation()
   
   const isActive = (path) => {
-    return location.pathname === path ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-gray-100'
+    return location.pathname === path ? 'nav-link active' : 'nav-link'
   }
   
   return (
-    <nav className="bg-white shadow-lg">
-      <div className="container mx-auto px-4">
-        <div className="flex justify-between items-center h-16">
-          <Link to="/" className="flex items-center space-x-2">
-            <Users className="h-8 w-8 text-blue-600" />
-            <span className="text-xl font-bold text-gray-800">Stokvel Manager</span>
+    <nav className="navbar">
+      <div className="nav-container">
+        <div className="nav-content">
+          <Link to="/" className="nav-brand">
+            <Users className="brand-icon" />
+            <span className="brand-text">Stokvel Manager</span>
           </Link>
           
-          <div className="flex space-x-4">
+          <div className="nav-menu">
             <Link
               to="/"
-              className={`px-3 py-2 rounded-md text-sm font-medium flex items-center space-x-1 ${isActive('/')}`}
+              className={isActive('/')}
             >
               <Home className="h-4 w-4" />
               <span>Home</span>
@@ -29,7 +29,7 @@ export function Navbar() {
             
             <Link
               to="/dashboard"
-              className={`px-3 py-2 rounded-md text-sm font-medium flex items-center space-x-1 ${isActive('/dashboard')}`}
+              className={isActive('/dashboard')}
             >
               <Users className="h-4 w-4" />
               <span>Dashboard</span>
@@ -37,7 +37,7 @@ export function Navbar() {
             
             <Link
               to="/stokvels"
-              className={`px-3 py-2 rounded-md text-sm font-medium flex items-center space-x-1 ${isActive('/stokvels')}`}
+              className={isActive('/stokvels')}
             >
               <Users className="h-4 w-4" />
               <span>Stokvels</span>
@@ -45,7 +45,7 @@ export function Navbar() {
             
             <Link
               to="/stokvels/create"
-              className={`px-3 py-2 rounded-md text-sm font-medium flex items-center space-x-1 ${isActive('/stokvels/create')}`}
+              className={isActive('/stokvels/create')}
             >
               <Plus className="h-4 w-4" />
               <span>Create Stokvel</span>
@@ -53,7 +53,7 @@ export function Navbar() {
             
             <Link
               to="/payment"
-              className={`px-3 py-2 rounded-md text-sm font-medium flex items-center space-x-1 ${isActive('/payment')}`}
+              className={isActive('/payment')}
             >
               <CreditCard className="h-4 w-4" />
               <span>Make Payment</span>
@@ -61,7 +61,7 @@ export function Navbar() {
             
             <Link
               to="/upload"
-              className={`px-3 py-2 rounded-md text-sm font-medium flex items-center space-x-1 ${isActive('/upload')}`}
+              className={isActive('/upload')}
             >
               <Upload className="h-4 w-4" />
               <span>Upload</span>
@@ -69,7 +69,7 @@ export function Navbar() {
             
             <Link
               to="/chat"
-              className={`px-3 py-2 rounded-md text-sm font-medium flex items-center space-x-1 ${isActive('/chat')}`}
+              className={isActive('/chat')}
             >
               <Bot className="h-4 w-4" />
               <span>AI Chat</span>
@@ -77,7 +77,7 @@ export function Navbar() {
             
             <Link
               to="/login"
-              className={`px-3 py-2 rounded-md text-sm font-medium flex items-center space-x-1 ${isActive('/login')}`}
+              className={isActive('/login')}
             >
               <LogIn className="h-4 w-4" />
               <span>Login</span>
@@ -85,7 +85,7 @@ export function Navbar() {
             
             <Link
               to="/register"
-              className={`px-3 py-2 rounded-md text-sm font-medium flex items-center space-x-1 ${isActive('/register')}`}
+              className={isActive('/register')}
             >
               <UserPlus className="h-4 w-4" />
               <span>Register</span>

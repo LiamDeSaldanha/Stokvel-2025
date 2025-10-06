@@ -34,19 +34,24 @@ export function StokvelDetail() {
   
   const fetchStokvelData = async () => {
     try {
-      const [stokvelRes, membersRes, contributionsRes] = await Promise.all([
+      const [stokvelRes, enrollmentsRes, contributionsRes] = await Promise.all([
         stokvelAPI.getStokvel(id),
-        stokvelAPI.getMembers(id),
-        stokvelAPI.getContributions(id)
+        stokvelAPI.getStokvelEnrollments(id),
+        stokvelAPI.getStokvelPayments(id)
       ])
       
       setStokvel(stokvelRes.data)
-      setMembers(membersRes.data)
-      setContributions(contributionsRes.data)
+      console.log('Enrollments:', enrollmentsRes.data)
+      // Set members as enrollments for now, or fetch user details separately
+      setMembers(Array.isArray(enrollmentsRes.data) ? enrollmentsRes.data : [])
+      setContributions(Array.isArray(contributionsRes.data) ? contributionsRes.data : [])
       setError(null)
     } catch (err) {
       setError('Failed to fetch stokvel data')
       console.error(err)
+      // Ensure arrays are set even on error
+      setMembers([])
+      setContributions([])
     } finally {
       setLoading(false)
     }
@@ -103,7 +108,9 @@ export function StokvelDetail() {
     )
   }
   
-  const totalContributions = contributions.reduce((sum, contrib) => sum + contrib.amount, 0)
+  const totalContributions = Array.isArray(contributions) 
+    ? contributions.reduce((sum, contrib) => sum + (parseFloat(contrib.amount) || 0), 0)
+    : 0
   
   return (
     <div>
@@ -134,7 +141,7 @@ export function StokvelDetail() {
             <Users className="h-10 w-10 text-blue-600 mr-4" />
             <div>
               <p className="text-sm text-gray-600">Members</p>
-              <p className="text-2xl font-bold">{members.length}</p>
+              <p className="text-2xl font-bold">{Array.isArray(members) ? members.length : 0}</p>
             </div>
           </div>
           
@@ -155,9 +162,9 @@ export function StokvelDetail() {
           </div>
         </div>
         
-        {stokvel.description && (
+        {stokvel.goal && (
           <div className="mt-6 pt-6 border-t">
-            <p className="text-gray-700">{stokvel.description}</p>
+            <p className="text-gray-700">{stokvel.goal}</p>
           </div>
         )}
       </div>
@@ -166,7 +173,7 @@ export function StokvelDetail() {
         {/* Members Section */}
         <div className="bg-white rounded-lg shadow">
           <div className="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
-            <h2 className="text-lg font-semibold">Members ({members.length})</h2>
+            <h2 className="text-lg font-semibold">Members ({Array.isArray(members) ? members.length : 0})</h2>
             <button
               onClick={() => setShowAddMember(true)}
               className="text-blue-600 hover:text-blue-700 flex items-center space-x-1"
@@ -219,18 +226,18 @@ export function StokvelDetail() {
               </form>
             )}
             
-            {members.length === 0 ? (
+            {!Array.isArray(members) || members.length === 0 ? (
               <p className="text-gray-500 text-center py-8">No members yet</p>
             ) : (
               <div className="space-y-4">
-                {members.map((member) => (
-                  <div key={member.id} className="flex justify-between items-center p-3 border rounded">
+                {members.map((enrollment) => (
+                  <div key={enrollment.id} className="flex justify-between items-center p-3 border rounded">
                     <div>
-                      <p className="font-medium">{member.name}</p>
-                      <p className="text-sm text-gray-600">{member.email}</p>
+                      <p className="font-medium">User ID: {enrollment.userid}</p>
+                      <p className="text-sm text-gray-600">{enrollment.isAdmin ? 'Admin' : 'Member'}</p>
                     </div>
                     <div className="text-sm text-gray-500">
-                      Joined {new Date(member.joined_at).toLocaleDateString()}
+                      Joined {new Date(enrollment.enrolled_at).toLocaleDateString()}
                     </div>
                   </div>
                 ))}
@@ -243,7 +250,7 @@ export function StokvelDetail() {
         <div className="bg-white rounded-lg shadow">
           <div className="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
             <h2 className="text-lg font-semibold">Recent Contributions</h2>
-            {members.length > 0 && (
+            {Array.isArray(members) && members.length > 0 && (
               <button
                 onClick={() => setShowAddContribution(true)}
                 className="text-blue-600 hover:text-blue-700 flex items-center space-x-1"
@@ -265,8 +272,8 @@ export function StokvelDetail() {
                     required
                   >
                     <option value="">Select Member</option>
-                    {members.map((member) => (
-                      <option key={member.id} value={member.id}>{member.name}</option>
+                    {Array.isArray(members) && members.map((enrollment) => (
+                      <option key={enrollment.id} value={enrollment.userid}>User ID: {enrollment.userid}</option>
                     ))}
                   </select>
                   <input
@@ -301,23 +308,23 @@ export function StokvelDetail() {
               </form>
             )}
             
-            {contributions.length === 0 ? (
+            {!Array.isArray(contributions) || contributions.length === 0 ? (
               <p className="text-gray-500 text-center py-8">No contributions yet</p>
             ) : (
               <div className="space-y-4">
-                {contributions.slice(0, 10).map((contribution) => {
-                  const member = members.find(m => m.id === contribution.member_id)
+                {Array.isArray(contributions) && contributions.slice(0, 10).map((contribution) => {
+                  const enrollment = Array.isArray(members) ? members.find(m => m.userid === contribution.userid) : null
                   return (
                     <div key={contribution.id} className="flex justify-between items-center p-3 border rounded">
                       <div>
-                        <p className="font-medium">{member?.name || 'Unknown Member'}</p>
+                        <p className="font-medium">User ID: {contribution.userid}</p>
                         <p className="text-sm text-gray-600">R {contribution.amount}</p>
                         {contribution.notes && (
                           <p className="text-xs text-gray-500">{contribution.notes}</p>
                         )}
                       </div>
                       <div className="text-sm text-gray-500">
-                        {new Date(contribution.contribution_date).toLocaleDateString()}
+                        {new Date(contribution.payment_date).toLocaleDateString()}
                       </div>
                     </div>
                   )

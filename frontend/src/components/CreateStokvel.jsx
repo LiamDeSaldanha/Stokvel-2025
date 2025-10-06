@@ -10,10 +10,12 @@ export function CreateStokvel() {
   
   const [formData, setFormData] = useState({
     name: '',
-    description: '',
-    contribution_amount: '',
-    contribution_frequency: 'monthly',
-    payout_frequency: 'monthly'
+    goal: '',
+    number_people: '',
+    monthly_contribution: '',
+    net_value: '',
+    interest_rate: '',
+    end_at: ''
   })
   
   const handleChange = (e) => {
@@ -30,15 +32,20 @@ export function CreateStokvel() {
     
     try {
       const submitData = {
-        ...formData,
-        contribution_amount: parseFloat(formData.contribution_amount)
+        name: formData.name,
+        goal: formData.goal || null,
+        number_people: formData.number_people ? parseInt(formData.number_people) : null,
+        monthly_contribution: formData.monthly_contribution ? parseInt(formData.monthly_contribution) : null,
+        net_value: parseInt(formData.net_value),
+        interest_rate: parseInt(formData.interest_rate),
+        end_at: formData.end_at || null
       }
       
       const response = await stokvelAPI.createStokvel(submitData)
       navigate(`/stokvels/${response.data.id}`)
     } catch (err) {
       setError('Failed to create stokvel. Please try again.')
-      console.error(err)
+      console.error('Stokvel creation error:', err)
     } finally {
       setLoading(false)
     }
@@ -81,74 +88,104 @@ export function CreateStokvel() {
           </div>
           
           <div>
-            <label htmlFor="description" className="block text-sm font-medium text-gray-700">
-              Description
+            <label htmlFor="goal" className="block text-sm font-medium text-gray-700">
+              Goal/Description
             </label>
             <textarea
-              name="description"
-              id="description"
+              name="goal"
+              id="goal"
               rows={3}
-              value={formData.description}
+              value={formData.goal}
               onChange={handleChange}
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-              placeholder="Describe the purpose of this stokvel"
-            />
-          </div>
-          
-          <div>
-            <label htmlFor="contribution_amount" className="block text-sm font-medium text-gray-700">
-              Contribution Amount (R) *
-            </label>
-            <input
-              type="number"
-              name="contribution_amount"
-              id="contribution_amount"
-              required
-              min="0"
-              step="0.01"
-              value={formData.contribution_amount}
-              onChange={handleChange}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-              placeholder="0.00"
+              placeholder="Describe the purpose and goals of this stokvel"
             />
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label htmlFor="contribution_frequency" className="block text-sm font-medium text-gray-700">
-                Contribution Frequency *
+              <label htmlFor="number_people" className="block text-sm font-medium text-gray-700">
+                Number of People
               </label>
-              <select
-                name="contribution_frequency"
-                id="contribution_frequency"
-                required
-                value={formData.contribution_frequency}
+              <input
+                type="number"
+                name="number_people"
+                id="number_people"
+                min="1"
+                value={formData.number_people}
                 onChange={handleChange}
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-              >
-                <option value="weekly">Weekly</option>
-                <option value="monthly">Monthly</option>
-                <option value="quarterly">Quarterly</option>
-              </select>
+                placeholder="Expected number of members"
+              />
             </div>
             
             <div>
-              <label htmlFor="payout_frequency" className="block text-sm font-medium text-gray-700">
-                Payout Frequency *
+              <label htmlFor="monthly_contribution" className="block text-sm font-medium text-gray-700">
+                Monthly Contribution (R)
               </label>
-              <select
-                name="payout_frequency"
-                id="payout_frequency"
-                required
-                value={formData.payout_frequency}
+              <input
+                type="number"
+                name="monthly_contribution"
+                id="monthly_contribution"
+                min="0"
+                value={formData.monthly_contribution}
                 onChange={handleChange}
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-              >
-                <option value="monthly">Monthly</option>
-                <option value="quarterly">Quarterly</option>
-                <option value="annually">Annually</option>
-              </select>
+                placeholder="Expected monthly contribution amount"
+              />
             </div>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label htmlFor="net_value" className="block text-sm font-medium text-gray-700">
+                Initial Net Value (R) *
+              </label>
+              <input
+                type="number"
+                name="net_value"
+                id="net_value"
+                required
+                min="0"
+                value={formData.net_value}
+                onChange={handleChange}
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                placeholder="Starting value of the stokvel fund"
+              />
+            </div>
+            
+            <div>
+              <label htmlFor="interest_rate" className="block text-sm font-medium text-gray-700">
+                Interest Rate (%) *
+              </label>
+              <input
+                type="number"
+                name="interest_rate"
+                id="interest_rate"
+                required
+                min="0"
+                max="100"
+                value={formData.interest_rate}
+                onChange={handleChange}
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                placeholder="Annual interest rate"
+              />
+            </div>
+          </div>
+          
+          <div>
+            <label htmlFor="end_at" className="block text-sm font-medium text-gray-700">
+              End Date
+            </label>
+            <input
+              type="datetime-local"
+              name="end_at"
+              id="end_at"
+              value={formData.end_at}
+              onChange={handleChange}
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+            />
+            <p className="mt-1 text-sm text-gray-500">Optional: Set when the stokvel should end</p>
           </div>
           
           <div className="flex justify-end space-x-4">
