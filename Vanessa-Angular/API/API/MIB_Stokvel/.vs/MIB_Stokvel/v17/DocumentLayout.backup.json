@@ -1,0 +1,224 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Charlie\\OneDrive - University of Pretoria\\Documents\\MIB\\API\\MIB_Stokvel\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{11CE5DA4-9789-4EEB-99E0-C1E8C10B4295}|MIB_Stokvel\\MIB_Stokvel.csproj|c:\\users\\charlie\\onedrive - university of pretoria\\documents\\mib\\api\\mib_stokvel\\mib_stokvel\\controllers\\documentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{11CE5DA4-9789-4EEB-99E0-C1E8C10B4295}|MIB_Stokvel\\MIB_Stokvel.csproj|solutionrelative:mib_stokvel\\controllers\\documentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11CE5DA4-9789-4EEB-99E0-C1E8C10B4295}|MIB_Stokvel\\MIB_Stokvel.csproj|c:\\users\\charlie\\onedrive - university of pretoria\\documents\\mib\\api\\mib_stokvel\\mib_stokvel\\models\\document.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{11CE5DA4-9789-4EEB-99E0-C1E8C10B4295}|MIB_Stokvel\\MIB_Stokvel.csproj|solutionrelative:mib_stokvel\\models\\document.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11CE5DA4-9789-4EEB-99E0-C1E8C10B4295}|MIB_Stokvel\\MIB_Stokvel.csproj|c:\\users\\charlie\\onedrive - university of pretoria\\documents\\mib\\api\\mib_stokvel\\mib_stokvel\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{11CE5DA4-9789-4EEB-99E0-C1E8C10B4295}|MIB_Stokvel\\MIB_Stokvel.csproj|solutionrelative:mib_stokvel\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11CE5DA4-9789-4EEB-99E0-C1E8C10B4295}|MIB_Stokvel\\MIB_Stokvel.csproj|c:\\users\\charlie\\onedrive - university of pretoria\\documents\\mib\\api\\mib_stokvel\\mib_stokvel\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{11CE5DA4-9789-4EEB-99E0-C1E8C10B4295}|MIB_Stokvel\\MIB_Stokvel.csproj|solutionrelative:mib_stokvel\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11CE5DA4-9789-4EEB-99E0-C1E8C10B4295}|MIB_Stokvel\\MIB_Stokvel.csproj|c:\\users\\charlie\\onedrive - university of pretoria\\documents\\mib\\api\\mib_stokvel\\mib_stokvel\\dtos\\registeruserdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{11CE5DA4-9789-4EEB-99E0-C1E8C10B4295}|MIB_Stokvel\\MIB_Stokvel.csproj|solutionrelative:mib_stokvel\\dtos\\registeruserdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11CE5DA4-9789-4EEB-99E0-C1E8C10B4295}|MIB_Stokvel\\MIB_Stokvel.csproj|c:\\users\\charlie\\onedrive - university of pretoria\\documents\\mib\\api\\mib_stokvel\\mib_stokvel\\dtos\\logindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{11CE5DA4-9789-4EEB-99E0-C1E8C10B4295}|MIB_Stokvel\\MIB_Stokvel.csproj|solutionrelative:mib_stokvel\\dtos\\logindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Charlie\\OneDrive - University of Pretoria\\Documents\\MIB\\API\\MIB_Stokvel\\MIB_Stokvel\\Migrations\\20251005180836_DocumentTable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:MIB_Stokvel\\Migrations\\20251005180836_DocumentTable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11CE5DA4-9789-4EEB-99E0-C1E8C10B4295}|MIB_Stokvel\\MIB_Stokvel.csproj|c:\\users\\charlie\\onedrive - university of pretoria\\documents\\mib\\api\\mib_stokvel\\mib_stokvel\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{11CE5DA4-9789-4EEB-99E0-C1E8C10B4295}|MIB_Stokvel\\MIB_Stokvel.csproj|solutionrelative:mib_stokvel\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11CE5DA4-9789-4EEB-99E0-C1E8C10B4295}|MIB_Stokvel\\MIB_Stokvel.csproj|c:\\users\\charlie\\onedrive - university of pretoria\\documents\\mib\\api\\mib_stokvel\\mib_stokvel\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{11CE5DA4-9789-4EEB-99E0-C1E8C10B4295}|MIB_Stokvel\\MIB_Stokvel.csproj|solutionrelative:mib_stokvel\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11CE5DA4-9789-4EEB-99E0-C1E8C10B4295}|MIB_Stokvel\\MIB_Stokvel.csproj|c:\\users\\charlie\\onedrive - university of pretoria\\documents\\mib\\api\\mib_stokvel\\mib_stokvel\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{11CE5DA4-9789-4EEB-99E0-C1E8C10B4295}|MIB_Stokvel\\MIB_Stokvel.csproj|solutionrelative:mib_stokvel\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Charlie\\OneDrive - University of Pretoria\\Documents\\MIB\\API\\MIB_Stokvel\\MIB_Stokvel\\Migrations\\20251005130411_initial.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:MIB_Stokvel\\Migrations\\20251005130411_initial.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11CE5DA4-9789-4EEB-99E0-C1E8C10B4295}|MIB_Stokvel\\MIB_Stokvel.csproj|c:\\users\\charlie\\onedrive - university of pretoria\\documents\\mib\\api\\mib_stokvel\\mib_stokvel\\services\\isecurepasswordhasher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{11CE5DA4-9789-4EEB-99E0-C1E8C10B4295}|MIB_Stokvel\\MIB_Stokvel.csproj|solutionrelative:mib_stokvel\\services\\isecurepasswordhasher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\Charlie\\OneDrive - University of Pretoria\\Documents\\MIB\\API\\MIB_Stokvel\\MIB_Stokvel\\Data\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "MIB_Stokvel\\Data\\AppDbContext.cs",
+              "ToolTip": "C:\\Users\\Charlie\\OneDrive - University of Pretoria\\Documents\\MIB\\API\\MIB_Stokvel\\MIB_Stokvel\\Data\\AppDbContext.cs",
+              "RelativeToolTip": "MIB_Stokvel\\Data\\AppDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAABGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-05T12:41:24.645Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "DocumentController.cs",
+              "DocumentMoniker": "C:\\Users\\Charlie\\OneDrive - University of Pretoria\\Documents\\MIB\\API\\MIB_Stokvel\\MIB_Stokvel\\Controllers\\DocumentController.cs",
+              "RelativeDocumentMoniker": "MIB_Stokvel\\Controllers\\DocumentController.cs",
+              "ToolTip": "C:\\Users\\Charlie\\OneDrive - University of Pretoria\\Documents\\MIB\\API\\MIB_Stokvel\\MIB_Stokvel\\Controllers\\DocumentController.cs",
+              "RelativeToolTip": "MIB_Stokvel\\Controllers\\DocumentController.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAYwCcAAABKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-05T17:55:15.279Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Document.cs",
+              "DocumentMoniker": "C:\\Users\\Charlie\\OneDrive - University of Pretoria\\Documents\\MIB\\API\\MIB_Stokvel\\MIB_Stokvel\\Models\\Document.cs",
+              "RelativeDocumentMoniker": "MIB_Stokvel\\Models\\Document.cs",
+              "ToolTip": "C:\\Users\\Charlie\\OneDrive - University of Pretoria\\Documents\\MIB\\API\\MIB_Stokvel\\MIB_Stokvel\\Models\\Document.cs",
+              "RelativeToolTip": "MIB_Stokvel\\Models\\Document.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-05T18:06:46.402Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "RegisterUserDto.cs",
+              "DocumentMoniker": "C:\\Users\\Charlie\\OneDrive - University of Pretoria\\Documents\\MIB\\API\\MIB_Stokvel\\MIB_Stokvel\\DTOs\\RegisterUserDto.cs",
+              "RelativeDocumentMoniker": "MIB_Stokvel\\DTOs\\RegisterUserDto.cs",
+              "ToolTip": "C:\\Users\\Charlie\\OneDrive - University of Pretoria\\Documents\\MIB\\API\\MIB_Stokvel\\MIB_Stokvel\\DTOs\\RegisterUserDto.cs",
+              "RelativeToolTip": "MIB_Stokvel\\DTOs\\RegisterUserDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-05T12:47:57.983Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "LoginDto.cs",
+              "DocumentMoniker": "C:\\Users\\Charlie\\OneDrive - University of Pretoria\\Documents\\MIB\\API\\MIB_Stokvel\\MIB_Stokvel\\DTOs\\LoginDto.cs",
+              "RelativeDocumentMoniker": "MIB_Stokvel\\DTOs\\LoginDto.cs",
+              "ToolTip": "C:\\Users\\Charlie\\OneDrive - University of Pretoria\\Documents\\MIB\\API\\MIB_Stokvel\\MIB_Stokvel\\DTOs\\LoginDto.cs",
+              "RelativeToolTip": "MIB_Stokvel\\DTOs\\LoginDto.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAAwBkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-05T15:06:33.159Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "20251005180836_DocumentTable.cs",
+              "DocumentMoniker": "C:\\Users\\Charlie\\OneDrive - University of Pretoria\\Documents\\MIB\\API\\MIB_Stokvel\\MIB_Stokvel\\Migrations\\20251005180836_DocumentTable.cs",
+              "RelativeDocumentMoniker": "MIB_Stokvel\\Migrations\\20251005180836_DocumentTable.cs",
+              "ToolTip": "C:\\Users\\Charlie\\OneDrive - University of Pretoria\\Documents\\MIB\\API\\MIB_Stokvel\\MIB_Stokvel\\Migrations\\20251005180836_DocumentTable.cs",
+              "RelativeToolTip": "MIB_Stokvel\\Migrations\\20251005180836_DocumentTable.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAmwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-05T18:08:36.872Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\Charlie\\OneDrive - University of Pretoria\\Documents\\MIB\\API\\MIB_Stokvel\\MIB_Stokvel\\Models\\User.cs",
+              "RelativeDocumentMoniker": "MIB_Stokvel\\Models\\User.cs",
+              "ToolTip": "C:\\Users\\Charlie\\OneDrive - University of Pretoria\\Documents\\MIB\\API\\MIB_Stokvel\\MIB_Stokvel\\Models\\User.cs",
+              "RelativeToolTip": "MIB_Stokvel\\Models\\User.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-05T12:30:23.6Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "C:\\Users\\Charlie\\OneDrive - University of Pretoria\\Documents\\MIB\\API\\MIB_Stokvel\\MIB_Stokvel\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "MIB_Stokvel\\Controllers\\AuthController.cs",
+              "ToolTip": "C:\\Users\\Charlie\\OneDrive - University of Pretoria\\Documents\\MIB\\API\\MIB_Stokvel\\MIB_Stokvel\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "MIB_Stokvel\\Controllers\\AuthController.cs",
+              "ViewState": "AgIAAEQAAAAAAAAAAAAiwFgAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-05T12:54:17.761Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Charlie\\OneDrive - University of Pretoria\\Documents\\MIB\\API\\MIB_Stokvel\\MIB_Stokvel\\Program.cs",
+              "RelativeDocumentMoniker": "MIB_Stokvel\\Program.cs",
+              "ToolTip": "C:\\Users\\Charlie\\OneDrive - University of Pretoria\\Documents\\MIB\\API\\MIB_Stokvel\\MIB_Stokvel\\Program.cs",
+              "RelativeToolTip": "MIB_Stokvel\\Program.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAAwCsAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-05T12:31:18.26Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "20251005130411_initial.cs",
+              "DocumentMoniker": "C:\\Users\\Charlie\\OneDrive - University of Pretoria\\Documents\\MIB\\API\\MIB_Stokvel\\MIB_Stokvel\\Migrations\\20251005130411_initial.cs",
+              "RelativeDocumentMoniker": "MIB_Stokvel\\Migrations\\20251005130411_initial.cs",
+              "ToolTip": "C:\\Users\\Charlie\\OneDrive - University of Pretoria\\Documents\\MIB\\API\\MIB_Stokvel\\MIB_Stokvel\\Migrations\\20251005130411_initial.cs",
+              "RelativeToolTip": "MIB_Stokvel\\Migrations\\20251005130411_initial.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-05T13:04:11.964Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Charlie\\OneDrive - University of Pretoria\\Documents\\MIB\\API\\MIB_Stokvel\\MIB_Stokvel\\appsettings.json",
+              "RelativeDocumentMoniker": "MIB_Stokvel\\appsettings.json",
+              "ToolTip": "C:\\Users\\Charlie\\OneDrive - University of Pretoria\\Documents\\MIB\\API\\MIB_Stokvel\\MIB_Stokvel\\appsettings.json",
+              "RelativeToolTip": "MIB_Stokvel\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAACiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-10-05T12:26:11.78Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "ISecurePasswordHasher.cs",
+              "DocumentMoniker": "C:\\Users\\Charlie\\OneDrive - University of Pretoria\\Documents\\MIB\\API\\MIB_Stokvel\\MIB_Stokvel\\Services\\ISecurePasswordHasher.cs",
+              "RelativeDocumentMoniker": "MIB_Stokvel\\Services\\ISecurePasswordHasher.cs",
+              "ToolTip": "C:\\Users\\Charlie\\OneDrive - University of Pretoria\\Documents\\MIB\\API\\MIB_Stokvel\\MIB_Stokvel\\Services\\ISecurePasswordHasher.cs",
+              "RelativeToolTip": "MIB_Stokvel\\Services\\ISecurePasswordHasher.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACkAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-05T12:44:44.169Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

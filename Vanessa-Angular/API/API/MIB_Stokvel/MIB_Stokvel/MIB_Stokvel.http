@@ -1,0 +1,6 @@
+@MIB_Stokvel_HostAddress = http://localhost:5127
+
+GET {{MIB_Stokvel_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

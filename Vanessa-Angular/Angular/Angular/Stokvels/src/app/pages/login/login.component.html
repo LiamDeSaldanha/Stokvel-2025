@@ -1,0 +1,44 @@
+<div class="page">
+  <div class="card">
+    <header class="card__header">
+      <h1 class="title">Login</h1>
+      <p class="subtitle">Use your email and password</p>
+    </header>
+
+    <form class="form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" type="email" formControlName="email"
+               [class.is-invalid]="form.controls.email.touched && form.controls.email.invalid"
+               placeholder="you@example.com" />
+        <div class="error" *ngIf="form.controls.email.touched && form.controls.email.errors">
+          <span *ngIf="form.controls.email.errors['required']">Email is required.</span>
+          <span *ngIf="form.controls.email.errors['email']">Enter a valid email.</span>
+          <span *ngIf="form.controls.email.errors['maxlength']">Max 200 characters.</span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="pwd">Password</label>
+        <input id="pwd" type="password" formControlName="password"
+               [class.is-invalid]="form.controls.password.touched && form.controls.password.invalid"
+               placeholder="Your password" />
+        <div class="error" *ngIf="form.controls.password.touched && form.controls.password.errors">
+          <span *ngIf="form.controls.password.errors['required']">Password is required.</span>
+          <span *ngIf="form.controls.password.errors['minlength']">At least 8 characters.</span>
+          <span *ngIf="form.controls.password.errors['maxlength']">Max 100 characters.</span>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button type="submit" class="btn" [disabled]="loading() || form.invalid">
+          <span class="spinner" *ngIf="loading()"></span>
+          <span *ngIf="!loading()">Login</span>
+          <span *ngIf="loading()">Checking…</span>
+        </button>
+      </div>
+
+      <p class="server-msg" *ngIf="serverMsg()">{{ serverMsg() }}</p>
+    </form>
+  </div>
+</div>

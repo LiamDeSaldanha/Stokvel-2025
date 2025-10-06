@@ -1,0 +1,38 @@
+<div class="upload-container">
+  <h2>Document Verification</h2>
+  <p>
+    Please upload the required documents to verify your identity and start using
+    stokvel services.
+  </p>
+
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group" *ngFor="let document of documents; let i = index">
+      <div class="document-section">
+        <div class="document-title">
+          <i class="fas fa-info-circle"></i>
+          <label>{{ document.name }}</label>
+        </div>
+        <div class="upload-section">
+          <input
+            type="file"
+            (change)="onFileChange($event, i)"
+            [attr.id]="'file' + i"
+          />
+          <span>{{ document.fileName || "No file chosen" }}</span>
+          <button
+            type="button"
+            (click)="removeFile(i)"
+            *ngIf="document.fileName"
+          >
+            Remove
+          </button>
+        </div>
+        <span class="status">{{ document.status }}</span>
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="!isFormValid()" class="btn btn-primary">
+      Submit for Verification
+    </button>
+  </form>
+</div>

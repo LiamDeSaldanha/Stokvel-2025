@@ -1,0 +1,331 @@
+{
+  "Version": 1,
+  "Hash": "KQe+lqSIf7Ugv2Q6m3HId77+O/kg3dWXCR6kRX2/lJs=",
+  "Source": "MIB_Stokvel",
+  "BasePath": "_content/MIB_Stokvel",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "MIB_Stokvel\\wwwroot",
+      "Source": "MIB_Stokvel",
+      "ContentRoot": "C:\\Users\\Charlie\\OneDrive - University of Pretoria\\Documents\\MIB\\API\\MIB_Stokvel\\MIB_Stokvel\\wwwroot\\",
+      "BasePath": "_content/MIB_Stokvel",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\Charlie\\OneDrive - University of Pretoria\\Documents\\MIB\\API\\MIB_Stokvel\\MIB_Stokvel\\wwwroot\\documents\\ERD.pdf",
+      "SourceId": "MIB_Stokvel",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Charlie\\OneDrive - University of Pretoria\\Documents\\MIB\\API\\MIB_Stokvel\\MIB_Stokvel\\wwwroot\\",
+      "BasePath": "_content/MIB_Stokvel",
+      "RelativePath": "documents/ERD#[.{fingerprint}]?.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "fotia2lcqa",
+      "Integrity": "v0hMmSBtlC5Gzu3tAB2HESCjQTcaNPTyYd2XFzCyFys=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\documents\\ERD.pdf"
+    },
+    {
+      "Identity": "C:\\Users\\Charlie\\OneDrive - University of Pretoria\\Documents\\MIB\\API\\MIB_Stokvel\\MIB_Stokvel\\wwwroot\\documents\\Informatics Application Form - TA's, AL's for 2026.pdf",
+      "SourceId": "MIB_Stokvel",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Charlie\\OneDrive - University of Pretoria\\Documents\\MIB\\API\\MIB_Stokvel\\MIB_Stokvel\\wwwroot\\",
+      "BasePath": "_content/MIB_Stokvel",
+      "RelativePath": "documents/Informatics Application Form - TA's, AL's for 2026#[.{fingerprint}]?.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "15pizjp2nk",
+      "Integrity": "xY40BEh550kkuPIufuN1qzw2XZ/NScs+Btiq51kLlQo=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\documents\\Informatics Application Form - TA's, AL's for 2026.pdf"
+    },
+    {
+      "Identity": "C:\\Users\\Charlie\\OneDrive - University of Pretoria\\Documents\\MIB\\API\\MIB_Stokvel\\MIB_Stokvel\\wwwroot\\documents\\Team06_Technical ERD.png",
+      "SourceId": "MIB_Stokvel",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Charlie\\OneDrive - University of Pretoria\\Documents\\MIB\\API\\MIB_Stokvel\\MIB_Stokvel\\wwwroot\\",
+      "BasePath": "_content/MIB_Stokvel",
+      "RelativePath": "documents/Team06_Technical ERD#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "mbsk3ydaw2",
+      "Integrity": "Ysc/zFKPBdw94EqTns+p1ExIhBcNosi9KiVOY7xo+5Y=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\documents\\Team06_Technical ERD.png"
+    }
+  ],
+  "Endpoints": [
+    {
+      "Route": "documents/ERD.fotia2lcqa.pdf",
+      "AssetFile": "C:\\Users\\Charlie\\OneDrive - University of Pretoria\\Documents\\MIB\\API\\MIB_Stokvel\\MIB_Stokvel\\wwwroot\\documents\\ERD.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "819582"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"v0hMmSBtlC5Gzu3tAB2HESCjQTcaNPTyYd2XFzCyFys=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 05 Oct 2025 18:32:36 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "fotia2lcqa"
+        },
+        {
+          "Name": "label",
+          "Value": "documents/ERD.pdf"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-v0hMmSBtlC5Gzu3tAB2HESCjQTcaNPTyYd2XFzCyFys="
+        }
+      ]
+    },
+    {
+      "Route": "documents/ERD.pdf",
+      "AssetFile": "C:\\Users\\Charlie\\OneDrive - University of Pretoria\\Documents\\MIB\\API\\MIB_Stokvel\\MIB_Stokvel\\wwwroot\\documents\\ERD.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "819582"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"v0hMmSBtlC5Gzu3tAB2HESCjQTcaNPTyYd2XFzCyFys=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 05 Oct 2025 18:32:36 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-v0hMmSBtlC5Gzu3tAB2HESCjQTcaNPTyYd2XFzCyFys="
+        }
+      ]
+    },
+    {
+      "Route": "documents/Informatics Application Form - TA's, AL's for 2026.15pizjp2nk.pdf",
+      "AssetFile": "C:\\Users\\Charlie\\OneDrive - University of Pretoria\\Documents\\MIB\\API\\MIB_Stokvel\\MIB_Stokvel\\wwwroot\\documents\\Informatics Application Form - TA's, AL's for 2026.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "252494"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"xY40BEh550kkuPIufuN1qzw2XZ/NScs+Btiq51kLlQo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 05 Oct 2025 18:28:15 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "15pizjp2nk"
+        },
+        {
+          "Name": "label",
+          "Value": "documents/Informatics Application Form - TA's, AL's for 2026.pdf"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-xY40BEh550kkuPIufuN1qzw2XZ/NScs+Btiq51kLlQo="
+        }
+      ]
+    },
+    {
+      "Route": "documents/Informatics Application Form - TA's, AL's for 2026.pdf",
+      "AssetFile": "C:\\Users\\Charlie\\OneDrive - University of Pretoria\\Documents\\MIB\\API\\MIB_Stokvel\\MIB_Stokvel\\wwwroot\\documents\\Informatics Application Form - TA's, AL's for 2026.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "252494"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"xY40BEh550kkuPIufuN1qzw2XZ/NScs+Btiq51kLlQo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 05 Oct 2025 18:28:15 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-xY40BEh550kkuPIufuN1qzw2XZ/NScs+Btiq51kLlQo="
+        }
+      ]
+    },
+    {
+      "Route": "documents/Team06_Technical ERD.mbsk3ydaw2.png",
+      "AssetFile": "C:\\Users\\Charlie\\OneDrive - University of Pretoria\\Documents\\MIB\\API\\MIB_Stokvel\\MIB_Stokvel\\wwwroot\\documents\\Team06_Technical ERD.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1454660"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Ysc/zFKPBdw94EqTns+p1ExIhBcNosi9KiVOY7xo+5Y=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 05 Oct 2025 18:22:55 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "mbsk3ydaw2"
+        },
+        {
+          "Name": "label",
+          "Value": "documents/Team06_Technical ERD.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Ysc/zFKPBdw94EqTns+p1ExIhBcNosi9KiVOY7xo+5Y="
+        }
+      ]
+    },
+    {
+      "Route": "documents/Team06_Technical ERD.png",
+      "AssetFile": "C:\\Users\\Charlie\\OneDrive - University of Pretoria\\Documents\\MIB\\API\\MIB_Stokvel\\MIB_Stokvel\\wwwroot\\documents\\Team06_Technical ERD.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1454660"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Ysc/zFKPBdw94EqTns+p1ExIhBcNosi9KiVOY7xo+5Y=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 05 Oct 2025 18:22:55 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Ysc/zFKPBdw94EqTns+p1ExIhBcNosi9KiVOY7xo+5Y="
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+﻿<Project>
+  <ItemGroup>
+    <StaticWebAssetEndpoint Include="_content/MIB_Stokvel/documents/ERD.fotia2lcqa.pdf">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\documents\ERD.pdf'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"fotia2lcqa"},{"Name":"integrity","Value":"sha256-v0hMmSBtlC5Gzu3tAB2HESCjQTcaNPTyYd2XFzCyFys="},{"Name":"label","Value":"_content/MIB_Stokvel/documents/ERD.pdf"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"819582"},{"Name":"Content-Type","Value":"application/pdf"},{"Name":"ETag","Value":"\u0022v0hMmSBtlC5Gzu3tAB2HESCjQTcaNPTyYd2XFzCyFys=\u0022"},{"Name":"Last-Modified","Value":"Sun, 05 Oct 2025 18:32:36 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/MIB_Stokvel/documents/ERD.pdf">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\documents\ERD.pdf'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-v0hMmSBtlC5Gzu3tAB2HESCjQTcaNPTyYd2XFzCyFys="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"819582"},{"Name":"Content-Type","Value":"application/pdf"},{"Name":"ETag","Value":"\u0022v0hMmSBtlC5Gzu3tAB2HESCjQTcaNPTyYd2XFzCyFys=\u0022"},{"Name":"Last-Modified","Value":"Sun, 05 Oct 2025 18:32:36 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/MIB_Stokvel/documents/Informatics Application Form - TA's, AL's for 2026.15pizjp2nk.pdf">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\documents\Informatics Application Form - TA's, AL's for 2026.pdf'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"15pizjp2nk"},{"Name":"integrity","Value":"sha256-xY40BEh550kkuPIufuN1qzw2XZ/NScs\u002BBtiq51kLlQo="},{"Name":"label","Value":"_content/MIB_Stokvel/documents/Informatics Application Form - TA\u0027s, AL\u0027s for 2026.pdf"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"252494"},{"Name":"Content-Type","Value":"application/pdf"},{"Name":"ETag","Value":"\u0022xY40BEh550kkuPIufuN1qzw2XZ/NScs\u002BBtiq51kLlQo=\u0022"},{"Name":"Last-Modified","Value":"Sun, 05 Oct 2025 18:28:15 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/MIB_Stokvel/documents/Informatics Application Form - TA's, AL's for 2026.pdf">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\documents\Informatics Application Form - TA's, AL's for 2026.pdf'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-xY40BEh550kkuPIufuN1qzw2XZ/NScs\u002BBtiq51kLlQo="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"252494"},{"Name":"Content-Type","Value":"application/pdf"},{"Name":"ETag","Value":"\u0022xY40BEh550kkuPIufuN1qzw2XZ/NScs\u002BBtiq51kLlQo=\u0022"},{"Name":"Last-Modified","Value":"Sun, 05 Oct 2025 18:28:15 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/MIB_Stokvel/documents/Team06_Technical ERD.mbsk3ydaw2.png">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\documents\Team06_Technical ERD.png'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"mbsk3ydaw2"},{"Name":"integrity","Value":"sha256-Ysc/zFKPBdw94EqTns\u002Bp1ExIhBcNosi9KiVOY7xo\u002B5Y="},{"Name":"label","Value":"_content/MIB_Stokvel/documents/Team06_Technical ERD.png"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1454660"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u0022Ysc/zFKPBdw94EqTns\u002Bp1ExIhBcNosi9KiVOY7xo\u002B5Y=\u0022"},{"Name":"Last-Modified","Value":"Sun, 05 Oct 2025 18:22:55 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/MIB_Stokvel/documents/Team06_Technical ERD.png">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\documents\Team06_Technical ERD.png'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-Ysc/zFKPBdw94EqTns\u002Bp1ExIhBcNosi9KiVOY7xo\u002B5Y="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"1454660"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u0022Ysc/zFKPBdw94EqTns\u002Bp1ExIhBcNosi9KiVOY7xo\u002B5Y=\u0022"},{"Name":"Last-Modified","Value":"Sun, 05 Oct 2025 18:22:55 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+  </ItemGroup>
+</Project>
